@@ -1,0 +1,1471 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><script type="text/javascript">
+/***********************************************
+* IFrame SSI script II- © Dynamic Drive DHTML code library (http://www.dynamicdrive.com)
+* Visit DynamicDrive.com for hundreds of original DHTML scripts
+* This notice must stay intact for legal use
+***********************************************/
+
+//Input the IDs of the IFRAMES you wish to dynamically resize to match its content height:
+//Separate each ID with a comma. Examples: ["myframe1", "myframe2"] or ["myframe"] or [] for none:
+
+// if it begins with a comma then strip it
+
+
+var iframeids=['myframe1','myframe2'];
+
+	//Should script hide iframe from browsers that don't support this script (non IE5+/NS6+ browsers. Recommended):
+	var iframehide="no";
+
+	var getFFVersion=navigator.userAgent.substring(navigator.userAgent.indexOf("Firefox")).split("/")[1];
+	var FFextraHeight=parseFloat(getFFVersion)&gt;=0.1? 30 : 0; //extra height in px to add to iframe in FireFox 1.0+ browsers
+
+	function resizeCaller() 
+	{
+		for (i=0; i&lt;iframeids.length; i++)
+		{
+			if (document.getElementById)
+			{
+				resizeIframe(iframeids[i]);
+			}
+		}
+
+		//Only continue for child windows, the top window is it's own parent 
+		if(window.parent != window)
+		{
+			if(parent.resizeCaller)
+			{
+				parent.resizeCaller();
+			}
+		}
+	}
+
+	//used for setting the height manually on a child iframe. called from within an iframe so parent.resizeTheFrame('myframe2',1716);
+	function resizeTheFrame(iframeName,newHeight)
+	{
+	   	var aFrame = document.getElementById(iframeName);
+		aFrame.height = newHeight;
+		//aFrame.style.height = (newHeight) + 'px';
+	}
+
+	//Temporary solution for absolute elements. Pass in frameId and the absolute element itself (not its id!)
+	function resizeAbsolute(iFrameid, absoluteElement, minWidth)
+	{
+		var elementBottom = absoluteElement.offsetTop + absoluteElement.offsetHeight;
+		var iframeElement = parent.document.getElementById(iFrameid);
+		iframeElement.height = Math.max(iframeElement.height, elementBottom);
+
+		if (minWidth &gt; iframeElement.width)
+		{
+			iframeElement.width = minWidth;
+		}
+	}
+
+	function resizeFixed(iframeName,newHeight, newWidth)
+	{
+		var aFrame = document.getElementById(iframeName);
+		if (newHeight &gt; aFrame.height)
+		{
+			aFrame.height = newHeight;
+		}
+
+		if (newWidth &gt; aFrame.width)
+		{
+			aFrame.width = newWidth;
+		}
+	}
+	
+	function resiIframeMin(frameid, min)
+	{
+		resizeIframe(frameid)
+		var currentfr=document.getElementById(frameid);
+		if(currentfr &amp;&amp; !window.opera &amp;&amp; currentfr.height &lt; min)
+		{
+			currentfr.height = min;
+		}
+	}
+
+	function resizeIframe(frameid)
+	{ 
+		var currentfr=document.getElementById(frameid);
+		if (currentfr &amp;&amp; !window.opera)
+		{
+			setupIframe(currentfr);
+			currentfr.style.display="block";
+			var heightBefore = currentfr.height;
+			var scrollHeight;
+			var extra = 0;
+			var chromeTop = false;
+			try 
+			{
+				var frameDoc;
+				var topBefore = window.document.documentElement.scrollTop;
+				if(topBefore == 0 &amp;&amp; window.document.body.scrollTop) {
+					topBefore = window.document.body.scrollTop;
+					chromeTop = true;
+				}				
+				var scrollingBefore = currentfr.scrolling;
+				currentfr.scrolling = 'no';
+				currentfr.height = 10;//force it to recalculate, otherwise on location change the bigger size stays
+				if (currentfr.Document &amp;&amp; currentfr.Document.body.scrollHeight) //ie5+ syntax
+				{
+					frameDoc = currentfr.Document;
+					if (scrollingBefore == 'auto' || scrollingBefore == 'yes')
+					{
+						scrollHeight = frameDoc.body.scrollHeight;
+						extra = 30; //I added 30 pixels for auto scrolling
+					}
+					else
+					{
+						scrollHeight = frameDoc.body.scrollHeight; 
+					}
+					clientHeight = frameDoc.body.clientHeight;
+				}
+				else if (currentfr.contentDocument.body)//Firefox / IE11
+				{
+					frameDoc = currentfr.contentDocument;
+					scrollHeight = frameDoc.body.scrollHeight;
+					clientHeight = frameDoc.body.clientHeight;
+					extra = FFextraHeight;
+				}
+				
+				var absElements = findAbsoluteElements(frameDoc);
+				var absBottom = bottomAbsoluteElements(absElements);
+				scrollHeight = Math.max(scrollHeight, absBottom);
+
+				currentfr.height = scrollHeight + extra;
+				
+				currentfr.scrolling = scrollingBefore;
+				
+				if(chromeTop) {
+					window.document.body.scrollTop = topBefore;
+				}
+				else {
+					window.document.documentElement.scrollTop = topBefore;
+				}
+			} 
+			catch (error) 
+			{
+				currentfr.height = 800;
+			}
+		}
+	}
+	function setupIframe(iframeElement){
+		if (iframeElement.addEventListener)
+		{
+			iframeElement.addEventListener("load", readjustIframe, false);
+		}
+		else if (iframeElement.attachEvent)
+		{
+			iframeElement.detachEvent("onload", readjustIframe); // Bug fix line
+			iframeElement.attachEvent("onload", readjustIframe);
+		}
+	}
+	function resizeIframeWidth(frameid)
+	{ 
+	
+		var frame = document.getElementById(frameid);
+		var frameContent;
+		var contentWidth; 
+		if (frame.Document &amp;&amp; frame.Document.body.width) //ie5+ syntax
+		{
+			frameContent = frame.Document.body;
+		}
+		else if (frame.contentWindow.document.documentElement)
+		{
+			frameContent = frame.contentWindow.document.documentElement;	
+		}
+		else if (frame.contentWindow.document.body)
+		{
+			frameContent = frame.contentWindow.document.body;
+		}
+		contentWidth = frameContent.scrollWidth;
+		frame.width = contentWidth;
+	} 
+
+	function readjustIframe(loadevt) 
+	{
+		var crossevt=(window.event)? event : loadevt;
+		var iframeroot=(crossevt.currentTarget)? crossevt.currentTarget : crossevt.srcElement;
+		if (iframeroot)
+		{
+			resizeIframe(iframeroot.id);
+		}
+	}
+	
+	function loadintoIframe(iframeid, url)
+	{
+		if (document.getElementById)
+		{
+			document.getElementById(iframeid).src=url;
+		}
+	}
+
+
+
+if (window.addEventListener)
+{
+	window.addEventListener("load", resizeCaller, false);
+}
+else if (window.attachEvent)
+{
+	window.attachEvent("onload", resizeCaller);
+}
+else
+{
+	window.onload=resizeCaller;
+}
+
+function findAbsoluteElements(doc){
+	var all = doc.getElementsByTagName("*");
+	var absElements = new Array();
+	for(var i=0; i&lt; all.length; i++){
+		if(all[i].position == 'absolute' || all[i].style.position == 'absolute'){
+			absElements[absElements.length] = all[i];
+		}
+	}
+	return absElements;
+}
+
+function bottomAbsoluteElements(absElements){
+	var bottom = 0;
+	for(var i=0;i&lt;absElements.length;i++){
+		var elemBottom = absElements[i].offsetTop + absElements[i].offsetHeight;
+		bottom = Math.max(bottom, elemBottom);
+	}
+	return bottom;
+}
+
+function recursiveResize(frame){
+	if(typeof frame !== "undefined"){
+		
+		if(frame.parent &amp;&amp; frame.top !== frame.self){
+			recursiveResize(frame.parent);
+		}
+		if(frame.resizeCaller){
+			setTimeout(frame.resizeCaller,700);
+		}
+	}
+}
+</script> 
+
+
+
+	
+<title>SW Customer Service</title>
+
+
+
+<script type="text/javascript" src="/sw_ap2/swchannel/scripts/StandardFuncs.js"></script>
+<script type="text/javascript" src="/sw_ap2/app/CommonUI/JS/jquery.min.js"></script>
+
+	<script type="text/javascript" src="/sw_ap2/app/CommonUI/JS/lib/bootstrap.min.js"></script>
+<link href="/sw_ap2/app/CommonUI/CSS/bootstrap/bootstrap.min.css" type="text/css" rel="stylesheet" />
+<style>
+.cs-dumb-row &gt; td{
+	padding: 0 !important;
+}
+td, th{
+    padding: 5px;
+}
+table.list_row_bg5 &gt; tbody &gt; tr &gt; td, table.list_row_bg4 &gt; tbody &gt; tr &gt; td, table.list_row_bg3 &gt; tbody &gt; tr &gt; td, 
+table.list_row_bg2 &gt; tbody &gt; tr &gt; td, table.list_row_bg1 &gt; tbody &gt; tr &gt; td, table.shrinkwrap-table &gt; tbody &gt; tr &gt; td,
+tr.shrinkwrap-row &gt; td,
+td.list_row_bg4, td.list_row_bg3, td.list_row_bg2, td.list_row_bg1  
+{
+    padding: 0px;
+}
+/*
+CS-413/SW-3988 when printing, bootstrap puts the href link after the anchor tag, displaying
+the url on the printout. This style removes it
+*/
+a[href]:after{
+    content:"";
+}
+</style>
+
+
+<script language="JavaScript">
+
+&lt;!-- This script and many more are available free online at --&gt;
+&lt;!-- The JavaScript Source!! http://javascript.internet.com --&gt;
+&lt;!-- Original:  Sandy McKay (razoblade12@alberta.com) --&gt;
+
+&lt;!-- Begin
+function newbg(abc)
+{
+	abc.style.backgroundColor="white";
+}
+
+function oldbg(abc)
+{
+	abc.style.backgroundColor="";
+}
+//  End --&gt;
+</script>
+
+
+<script language="JavaScript"> 
+  function DaughterWindow (URL)
+  {
+    xWindow = window.open(URL,"","resizable,width=400,height=600,top=0,left=0,scrollbars=yes");
+  }
+</script>
+
+
+<script language="JavaScript"> 
+  function DaughterWindow2 (URL)
+  {
+    xWindow = window.open(URL,"","resizable,width=800,height=600,top=50,left=50,scrollbars=yes");
+  }
+</script>
+
+<script language="JavaScript">
+	function combo(a) {
+		var ele = document.getElementById('contents'+a);
+		if (ele.style.visibility == "hidden") {
+		  ele.style.visibility="visible";
+		} else {
+		  ele.style.visibility="hidden";
+}
+}
+</script>
+
+
+
+</head>
+
+
+
+<body background="/customerservice/images/bg.gif" link="navy" alink="navy" vlink="navy" leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" marginheight="0" marginwidth="0"><div id="SetBG" style="position: absolute; display: none; width: 100%; z-index: 40; height: 100%; background-image: url(/sw_ap2/themes/5/images/_dropshadow.png);"></div>
+<div id="SWWindowLayer" style="display:none;"></div>
+
+
+
+<script language="JavaScript">
+	var SWWinID = 50;
+	var SWWinList = '';
+	var SWTopWin = 0;
+
+	function KillWindow()
+	{
+		/*eval('document.getElementById("WindowSW' + SWTopWin + '").style.display = "none"');*/
+		//document.getElementById("SetBG").style.display = "none";
+		$('.sw-modal').modal('hide');
+    //force remove the backdrop, for whatever reasons sometimes it sticks around (SW-3508)
+    $('.modal-backdrop').remove();
+		if (iframeids == 'WindowSW' + SWTopWin + 'Frame')
+		{
+			iframeids = '';
+		}
+		
+		//window.scrollTo(0, 0);
+	}
+	
+	function NewWindow(SWWindowLabel,URL,OverrideScrollTo,OverrideWidth,OverrideTop, onClose)
+	{
+		OverrideTop = typeof OverrideTop !== 'undefined' ? OverrideTop : 0;
+		
+    SWWinID = parseInt(SWWinID,10);
+    if(isNaN(SWWinID)){
+      SWWinID = 0;
+    }
+		SWWinID = SWWinID + 1;
+		var thisWindowName = 'WindowSW' + SWWinID;
+		
+		SWWinList = SWWinList + ',' + thisWindowName;
+		
+		//var winHTML = '&lt;div id="' + thisWindowName + '" style="position: absolute; display: block; width: 100%; z-index: ' + SWWinID + ';"&gt;';
+		/*winHTML = winHTML + '&lt;table cellpadding="10" width="100%" background="/sw_ap2/themes/5/images/_dropshadow.png"&gt;&lt;tr&gt;&lt;td&gt;&lt;table cellpadding="0" cellspacing="1" width="100%" class="list_row_bg3"&gt;';
+		winHTML = winHTML + '&lt;tr&gt;&lt;td class="list_row_bg4"&gt;&lt;table cellpadding="3" cellspacing="0" width="100%" background="/sw_ap2/themes/5/images/button_bg.gif"&gt;';
+		winHTML = winHTML + '&lt;tr&gt;&lt;td width="100%" onmousedown="dragStart(event, \'' + thisWindowName + '\')"&gt;&lt;span class="normal_small_bold"&gt; ' + SWWindowLabel + '&lt;/span&gt;&lt;/td&gt;';
+		winHTML = winHTML + '&lt;td align="right"&gt; &lt;button name="" title="" id="Btn_32564B1B-BBCF-461C-879F7F0E0E8997EB" onclick=" KillWindow();"  class="btn btn-default btn-xs " type="button"&gt;	&lt;i class="sw-icon ss-icon " &gt;close&lt;/i&gt; &lt;/button&gt; ';
+		winHTML = winHTML + '&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;';*/
+
+		/*
+    winHTML = winHTML + '&lt;tr&gt;&lt;td class="list_row_bg2"&gt;&lt;iframe id="' + thisWindowName + 'Frame" name="' + thisWindowName + 'Frame" width="100%" frameborder="0" scrolling="no" src="' + URL + '" height="800"&gt;&lt;/iframe&gt;';
+		winHTML = winHTML + '&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;';
+		*/
+
+    var closeClick = "";
+    if(onClose)
+    {
+      closeClick = 'onclick="'+onClose +'"';
+    }
+
+    var closeButton = '&lt;i class="sw-icon ss-icon " &gt;close&lt;/i&gt;';
+    winHTML = '&lt;div class="sw-modal modal fade" id="' + thisWindowName +'_modalId" tabindex="-1" role="dialog"&gt;&lt;div class="modal-dialog"&gt;&lt;div class="modal-content"&gt;&lt;div class="modal-header" id="modal_header"&gt;&lt;span id="header_text"&gt;' + SWWindowLabel +'&lt;/span&gt;&lt;button type="button" class="close" data-dismiss="modal" '+ closeClick +'&gt;'+ closeButton +'&lt;/button&gt;&lt;/div&gt;&lt;div class="modal-body"&gt;&lt;iframe id="' + thisWindowName + 'Frame" name="' + thisWindowName + 'Frame" width="100%" frameborder="0" scrolling="no" src="' + URL + '" height="800"&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;';
+		document.getElementById("SWWindowLayer").innerHTML = winHTML;
+    document.getElementById("SWWindowLayer").style.display="block";
+		
+		//add new iframe to the resize script
+		if(typeof iframeids != "undefined" &amp;&amp; iframeids.length &gt; 0)
+		{
+			framelistlen = iframeids.length + 1; 
+			iframeids[framelistlen] = thisWindowName + 'Frame';
+		}
+		else
+		{
+			iframeids = [thisWindowName + 'Frame'];
+		}
+		thisWindowFrame = thisWindowName + 'Frame';
+		//resizeIframe(thisWindowFrame);
+		//setTimeout('resizeIframe(thisWindowFrame)', 250);
+		//setTimeout('resizeIframe(thisWindowFrame)', 500);
+		//setTimeout('resizeIframe(thisWindowFrame)', 1000);
+		
+    //attach to the load event as the call to resizeIframe may not work b/c the frame hasn't finished loading yet.
+    var iframeElement = document.getElementById(thisWindowFrame);
+    if (iframeElement.addEventListener &amp;&amp; typeof readjustIframe != "undefined")
+    {
+      iframeElement.addEventListener("load", readjustIframe, false);
+    }
+    else if (iframeElement.attachEvent  &amp;&amp; typeof readjustIframe != "undefined")
+    {
+      iframeElement.detachEvent("onload", readjustIframe); // Bug fix line
+      iframeElement.attachEvent("onload", readjustIframe);
+    }
+		//MaxWindow(SWWinID,OverrideScrollTo,OverrideWidth);
+    
+    var modalId = '#' +thisWindowName +'_modalId';
+    $(modalId).on('shown.bs.modal', function () {
+      resizeIframe(thisWindowFrame);
+    });
+
+    $(modalId).modal({
+      backdrop: 'static',
+      show: true
+    });
+    
+    return iframeElement;
+	}
+	
+	function MaxWindow(SWWinID,OverrideScrollTo,OverrideWidth,OverrideTop)
+	{
+		
+		SWTopWin = SWWinID;
+		var windowtop = 0;
+    var tempY,scrolltotop;
+		if(OverrideScrollTo != undefined)
+		{
+			tempY = OverrideScrollTo;
+      
+      windowtop = tempY-130;
+      scrolltotop = tempY-134;
+		}
+		if(windowtop &lt; 0)
+		{
+			windowtop = 0;
+		}
+		else if( OverrideTop !== 'undefined' ){
+			windowtop = OverrideTop;
+		}
+		if(scrolltotop &lt; 0)
+    {
+      scrolltotop = 0;
+    }
+    document.getElementById("WindowSW" + SWWinID).style.top = windowtop;
+		
+		window.scrollTo(0, scrolltotop);
+		
+		v_widthheight = getPageSizeWithScroll();
+		v_width = v_widthheight[0];
+		v_height = v_widthheight[1];
+		
+		if(OverrideWidth != undefined)
+		{
+			document.getElementById("SWWindowLayer").style.width = OverrideWidth;
+		}
+		else
+		{
+			document.getElementById("SWWindowLayer").style.width = "100%";
+		}
+		
+		document.getElementById("SWWindowLayer").style.display = "block";
+	}
+	
+	//&lt;![CDATA[
+ 
+//*****************************************************************************
+// Do not remove this notice.
+//
+// Copyright 2001 by Mike Hall.
+// See http://www.brainjar.com for terms of use.
+//*****************************************************************************
+ 
+// Determine browser and version.
+ 
+function Browser() {
+ 
+  var ua, s, i;
+ 
+  this.isIE    = false;
+  this.isNS    = false;
+  this.version = null;
+ 
+  ua = navigator.userAgent;
+ 
+  s = "MSIE";
+  if ((i = ua.indexOf(s)) &gt;= 0) {
+    this.isIE = true;
+    this.version = parseFloat(ua.substr(i + s.length));
+    return;
+  }
+ 
+  s = "Netscape6/";
+  if ((i = ua.indexOf(s)) &gt;= 0) {
+    this.isNS = true;
+    this.version = parseFloat(ua.substr(i + s.length));
+    return;
+  }
+ 
+  // Treat any other "Gecko" browser as NS 6.1.
+ 
+  s = "Gecko";
+  if ((i = ua.indexOf(s)) &gt;= 0) {
+    this.isNS = true;
+    this.version = 6.1;
+    return;
+  }
+}
+ 
+var browser = new Browser();
+ 
+// Global object to hold drag information.
+ 
+var dragObj = new Object();
+dragObj.zIndex = 0;
+ 
+var currentid = ""; 
+ 
+function dragStart(event, id) {
+ 
+  var el;
+  var x, y;
+ 
+  currentid = id; 
+ 
+  // If an element id was given, find it. Otherwise use the element being
+  // clicked on.
+ 
+  eval('document.getElementById("' + id + 'Frame").style.display ="none"');
+ 
+  if (id)
+    dragObj.elNode = document.getElementById(id);
+  else {
+    if (browser.isIE)
+      dragObj.elNode = window.event.srcElement;
+    if (browser.isNS)
+      dragObj.elNode = event.target;
+ 
+    // If this is a text node, use its parent element.
+ 
+    if (dragObj.elNode.nodeType == 3)
+      dragObj.elNode = dragObj.elNode.parentNode;
+  }
+ 
+  // Get cursor position with respect to the page.
+ 
+  if (browser.isIE) {
+    x = window.event.clientX + document.documentElement.scrollLeft
+      + document.body.scrollLeft;
+    y = window.event.clientY + document.documentElement.scrollTop
+      + document.body.scrollTop;
+  }
+  if (browser.isNS) {
+    x = event.clientX + window.scrollX;
+    y = event.clientY + window.scrollY;
+  }
+ 
+  // Save starting positions of cursor and element.
+ 
+  dragObj.cursorStartX = x;
+  dragObj.cursorStartY = y;
+  dragObj.elStartLeft  = parseInt(dragObj.elNode.style.left, 10);
+  dragObj.elStartTop   = parseInt(dragObj.elNode.style.top,  10);
+ 
+  if (isNaN(dragObj.elStartLeft)) dragObj.elStartLeft = 0;
+  if (isNaN(dragObj.elStartTop))  dragObj.elStartTop  = 0;
+ 
+  // Update element's z-index.
+ 
+  dragObj.elNode.style.zIndex = ++dragObj.zIndex;
+ 
+  // Capture mousemove and mouseup events on the page.
+ 
+  if (browser.isIE) {
+    document.attachEvent("onmousemove", dragGo);
+    document.attachEvent("onmouseup",   dragStop);
+    window.event.cancelBubble = true;
+    window.event.returnValue = false;
+  }
+  if (browser.isNS) {
+    document.addEventListener("mousemove", dragGo,   true);
+    document.addEventListener("mouseup",   dragStop, true);
+    event.preventDefault();
+  }
+}
+ 
+function dragGo(event) {
+ 
+  var x, y;
+ 
+  // Get cursor position with respect to the page.
+ 
+  if (browser.isIE) {
+    x = window.event.clientX + document.documentElement.scrollLeft
+      + document.body.scrollLeft;
+    y = window.event.clientY + document.documentElement.scrollTop
+      + document.body.scrollTop;
+  }
+  if (browser.isNS) {
+    x = event.clientX + window.scrollX;
+    y = event.clientY + window.scrollY;
+  }
+ 
+  // Move drag element by the same amount the cursor has moved.
+ 
+  dragObj.elNode.style.left = (dragObj.elStartLeft + x - dragObj.cursorStartX) + "px";
+  dragObj.elNode.style.top  = (dragObj.elStartTop  + y - dragObj.cursorStartY) + "px";
+ 
+  if (browser.isIE) {
+    window.event.cancelBubble = true;
+    window.event.returnValue = false;
+  }
+  if (browser.isNS)
+    event.preventDefault();
+}
+ 
+function dragStop(event) {
+ 
+  // Stop capturing mousemove and mouseup events.
+ 
+  if (browser.isIE) {
+    document.detachEvent("onmousemove", dragGo);
+    document.detachEvent("onmouseup",   dragStop);
+  }
+  if (browser.isNS) {
+    document.removeEventListener("mousemove", dragGo,   true);
+    document.removeEventListener("mouseup",   dragStop, true);
+  }
+  
+  eval('document.getElementById("' + currentid + 'Frame").style.display ="block"');
+}
+ 
+//]]&gt;
+	
+</script>
+
+<link rel="stylesheet" href="/customerservice/images/theme.css" type="text/css" />
+<link href="/sw_ap2/app/CommonUI/CSS/fonts/ss-pika/webfonts/ss-pika.css" type="text/css" rel="stylesheet" />
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" height="31">
+	<tbody><tr height="31" class="cs-dumb-row">
+		<td background="/customerservice/images/head_bg.gif" nowrap="">
+			<span class="normal_bold_text">
+			 
+			<a href="/customerservice/Home.cfm" style="color: Black; text-decoration: none;">
+			Home</a>
+			</span>
+		</td>
+		<td>
+			<a href="/customerservice/Home.cfm">
+			<img src="/customerservice/images/head_home.gif" border="0" /></a></td>
+		<td background="/customerservice/images/head_bg.gif" nowrap="">
+			<span class="normal_bold_text">
+			 
+			<a href="Javascript: combo(0)" style="color: Black; text-decoration: none;">
+			Search</a>
+			</span>
+		</td>
+		<td>
+			<a href="Javascript: combo(0)">
+			<img src="/customerservice/images/head_customer.gif" border="0" /></a></td>
+		<td background="/customerservice/images/head_bg.gif" nowrap="">
+			<span class="normal_bold_text">
+			 
+			<a href="Javascript: combo(1)" style="color: Black; text-decoration: none;">
+			Reports</a>
+			 
+			</span>
+		</td>
+		<td>
+			<a href="Javascript: combo(1)">
+			<img src="/customerservice/images/head_report.gif" border="0" /></a></td>
+		<td background="/customerservice/images/head_bg.gif" nowrap="">
+			<span class="normal_bold_text">
+			 
+			<a href="Javascript: combo(2)" style="color: Black; text-decoration: none;">
+			Content</a>
+			 
+			</span>
+		</td>
+		<td>
+			<a href="Javascript: combo(2)">
+			<img src="/customerservice/images/head_email.gif" border="0" /></a></td>
+		<td background="/customerservice/images/head_bg.gif" nowrap="">
+			<span class="normal_bold_text">
+			 
+			<a href="Javascript: combo(3)" style="color: Black; text-decoration: none;">
+			Calls</a>
+			 
+			</span>
+		</td>
+		<td>
+			<a href="Javascript: combo(3)">
+			<img src="/customerservice/images/head_calllogs.gif" border="0" /></a></td>
+		<td background="/customerservice/images/head_bg.gif" nowrap="">
+			<span class="normal_bold_text">
+			 
+			<a href="Javascript: combo(5)" style="color: Black; text-decoration: none;">
+			Admin</a>
+			 
+			</span>
+		</td>
+		<td>
+			<a href="Javascript: combo(5)">
+			<img src="/customerservice/images/head_admin.gif" border="0" /></a>
+		</td>
+		
+		<td background="/customerservice/images/head_bg.gif" nowrap="">
+			
+			
+							<a target="_blank" style="text-decoration: none;" href="http://jira/issues/?jql=Branch%20%7E%20SW-6386-enhance-download-ability-of-emails"><span style="color:#B00000; font-weight: bold; margin-left: 5px;">branch: SW-6386-enhance-download-ability-of-emails</span></a>
+								
+		</td>
+		
+		<td background="/customerservice/images/head_bg.gif" nowrap="" width="50%" align="right">
+			<table>
+				<tbody><tr>
+					<form action="/customerservice/Site_List_Display.cfm" method="post"></form>
+					<td>
+						<span class="normal_small_bold">
+						Site ID: 
+						<input type="text" name="SiteIDSearch" class="TextInput3" onfocus="newbg(this);" onblur="oldbg(this);" /> 
+						</span>	
+					</td>
+					
+				</tr>
+			</tbody></table>
+		</td>
+	</tr>
+	<tr bgcolor="Black">
+		<td>
+			
+		</td>
+		<td></td>
+		<td>
+			<div id="contents0" style="position:absolute; left:?px; top:?px; width:?px; height:?px; z-index:1; visibility:hidden">
+			<table border="0" cellspacing="0" cellpadding="5" bordercolor="000000">
+				<tbody><tr>
+					<td bgcolor="D7DEED">
+						<span class="normal_small_text">
+						<form action="/customerservice/Site_List_Display.cfm" method="post">
+						Site ID:<br />
+						<input type="text" name="SiteIDSearch" class="TextInput3" onfocus="newbg(this);" onblur="oldbg(this);" />
+						</form>
+						<form action="/customerservice/Site_List_Display.cfm" method="post">
+						<input type="Hidden" name="QuickSearch" value="1" />
+						Company:<br />
+						<input type="text" name="CompanyName" class="TextInput2" onfocus="newbg(this);" onblur="oldbg(this);" />
+						</form>
+						<form action="/customerservice/Site_List_Display.cfm" method="post">
+						<input type="Hidden" name="QuickSearch" value="1" />
+						Last Name:<br />
+						<input type="text" name="LastName" class="TextInput2" onfocus="newbg(this);" onblur="oldbg(this);" />
+						</form>
+						<form action="/customerservice/Site_List_Display.cfm" method="post">
+						<input type="Hidden" name="QuickSearch" value="1" />
+						Email:<br />
+						<input type="text" name="EmailAddress" class="TextInput2" onfocus="newbg(this);" onblur="oldbg(this);" />
+						</form>
+						<form action="/customerservice/Site_List_Display.cfm" method="post">
+						<input type="Hidden" name="QuickSearch" value="1" />
+						Web Address:<br />
+						<input type="text" name="SiteWebAddress" class="TextInput2" onfocus="newbg(this);" onblur="oldbg(this);" />
+						</form>
+						<a href="/customerservice/Site_Search.cfm">Advanced Search</a><br />
+						</span>
+					</td>
+				</tr>
+			</tbody></table>
+			</div>
+		</td>
+		<td></td>
+		<td>
+			
+			<div id="contents1" style="position:absolute; left:?px; top:?px; width:?px; height:?px; z-index:1; visibility:hidden">
+			<table border="0" cellspacing="0" cellpadding="5" bordercolor="000000">
+				<tbody><tr>
+					<td bgcolor="D7DEED" nowrap="">
+						<span class="normal_small_text">
+						<li><a href="/customerservice/allsites_report.cfm">
+						All Sites Report</a></li>
+						<li><a href="/customerservice/calltype_report.cfm">
+						Call Type Report</a></li>
+						<li><a href="/customerservice/reports/CampaignUsage.cfm">
+						Campaign Usage</a></li>
+						<li><a href="/customerservice/usage_report.cfm">
+						Category Usage</a></li>
+						<li><a href="/customerservice/Collection_report.cfm">
+						Collection Report</a></li>
+						<li><a href="/customerservice/commission_report.cfm">
+						Commission Report</a></li>
+						<li><a href="/customerservice/DNSReport.cfm?StatusID=0">
+						DNS Report</a></li>
+						<li><a href="/customerservice/expertrip_report.cfm">
+						ExperTrip Report</a></li>
+						<li><a href="/customerservice/managedmarketing.cfm">
+						Managed Marketing Report</a></li>
+						<li><a href="/customerservice/ProjectReportByStage.cfm">
+						Project Report</a></li>
+						<li><a href="/customerservice/ProjectReportOutsource.cfm">
+						Project Outsource</a></li>
+						<li><a href="/customerservice/promo_publish.cfm">
+						Promotions</a></li>
+						<li><a href="/customerservice/CustomerReferenceFor.cfm">
+						Reference Sites</a></li>
+						<li><a href="/customerservice/CustomerCenterFirstTimeVisit.cfm">
+						Sales Activity Report</a></li>
+						
+							<li><a href="/customerservice/ScheduledTasksStatus.cfm">
+							Scheduled Tasks dashboard</a></li>					
+						
+						<li><a href="/customerservice/SeminarReport.cfm">
+						Seminar Report</a></li>
+						<li><a href="/customerservice/reports/WebServerStatus.cfm" target="_blank">
+						Server Performance</a></li>
+						<li><a href="/customerservice/ServiceReports.cfm">
+						Service Report</a></li>
+						<li><a href="/customerservice/browser_session_report.cfm">
+						Session Reports</a></li>
+						<li><a href="/customerservice/CurrentSites.cfm">
+						Site Count</a></li>
+						<li><a href="/customerservice/reports/AccountManagerSites.cfm">
+						Site Account Managers</a></li>
+						<li><a href="/customerservice/state_report.cfm">
+						State/Catalog Sites</a></li>
+						<li><a href="/customerservice/pricelistsummary.cfm">
+						SKU Report</a></li>
+						<li><a href="/customerservice/channel_report.cfm">
+						SWChannel Report</a></li>
+						
+						<li><a href="/customerservice/topchiro.cfm">
+						TopChiro Report</a></li>
+						<li><a href="/customerservice/TrainingReport.cfm">
+						Training Report</a></li>
+						<li><a href="/customerservice/sales_activities_report.cfm">
+						User Activity Report</a></li>
+						
+							<strong>Renewals</strong>
+							<li><a href="/customerservice/Renewal_Forecast_new.cfm">
+							Renewal Forecast</a></li>
+							<li><a href="/customerservice/reports/RenewalChanges.cfm">
+							Renewal Trends</a></li>
+							<li><a href="/customerservice/CashFlowInfo_Renewals.cfm">
+							Cash Flow Report</a></li>
+						
+
+						</span>
+					</td>
+				</tr>
+			</tbody></table>
+			</div>
+		</td>
+		<td></td>
+		<td>
+			
+			<div id="contents2" style="position:absolute; left:?px; top:?px; width:?px; height:?px; z-index:1; visibility:hidden">
+			<table width="150" border="0" cellspacing="0" cellpadding="5" bordercolor="000000">
+				<tbody><tr>
+					<td bgcolor="D7DEED" nowrap="">
+						<span class="normal_small_text">
+						
+						<li><a href="/customerservice/ManagedContent/BundleList.cfm">
+							Managed Programs</a></li>
+						<li><a href="/customerservice/ManagedContent/DirectMailReject.cfm">
+							Direct mail rejects</a></li>
+						
+						<li><a href="/customerservice/ManagedContent/SEMCatalogLinks.cfm">
+							SEM Catalog Links</a></li>
+						<li><a href="/customerservice/reports/retrieveContent.cfm">
+							Retrieve Content</a></li>
+						</span>
+					</td>
+				</tr>
+			</tbody></table>
+			</div>
+		</td>
+		<td></td>
+		<td>
+			
+			<div id="contents3" style="position:absolute; left:?px; top:?px; width:?px; height:?px; z-index:1; visibility:hidden">
+			<table border="0" cellspacing="0" cellpadding="5" bordercolor="000000">
+				<tbody><tr>
+					<td bgcolor="D7DEED" nowrap="">
+						<span class="normal_small_text">
+						<li><a href="/customerservice/ServiceCallLog.cfm?StatusID=1&amp;AssignTo=1&amp;CallTypeID=&amp;Date=">Open Not Assigned</a></li>
+						<li><a href="/customerservice/ServiceCallLog.cfm?AssignTo=3299&amp;StatusID=1&amp;CallTypeID=&amp;Date=">Assigned to Me</a></li>
+						<li><a href="/customerservice/ServiceCallLog.cfm?StatusID=1&amp;AssignTo=&amp;CallTypeID=&amp;Date=">Open</a></li>
+						<li><a href="/customerservice/ServiceCallLog.cfm?StatusID=1&amp;AssignTo=&amp;CallTypeID=&amp;Date=y">Open Over 24 Hours</a></li>
+						<li><a href="/customerservice/ServiceCallLog.cfm?StatusID=5&amp;AssignTo=&amp;CallTypeID=">Suggestions</a></li>
+						<li><a href="/customerservice/ServiceCallLog.cfm?StatusID=3&amp;AssignTo=&amp;CallTypeID=">Closed</a></li>
+						<li><a href="/customerservice/ServiceCallLog.cfm?StatusID=&amp;AssignTo=&amp;CallTypeID=">All</a></li>
+						</span>
+					</td>
+				</tr>
+			</tbody></table>
+			</div>
+		</td>
+		<td></td>
+		<td>
+			
+			<div id="contents5" style="position:absolute; left:?px; top:?px; width:?px; height:?px; z-index:1; visibility:hidden">
+			<table border="0" cellspacing="0" cellpadding="5" bordercolor="000000">
+				<tbody><tr>
+					<td bgcolor="D7DEED" nowrap="">
+						<span class="normal_small_text">
+						<li><a href="Javascript:DaughterWindow('/customerservice/AdminFunctions/SuggestionAdd.cfm?Pword=0');">Add Suggestion</a></li>
+						<li><a href="/customerservice/Admin.cfm">Users Admin</a></li>
+						<li><a href="/customerservice/Admin.cfm?AdminPage=GroupList">Groups Admin</a></li>
+						<li><a href="/customerservice/TrainingSchedule.cfm">Training Schedule</a></li>
+						<li><a href="/customerservice/admin/RefreshView.cfm">Refresh site View</a></li>
+						
+								<li><a href="/sw_ap2/app/Zorg/CS/DeletePhoneNumberFromCompanySite.aspx">Delete phone tracking numbers for site</a><br />
+								</li><li><a href="/sw_ap2/app/Zorg/CS/SwitchSiteAdmin.aspx">Switch site admin</a><br />
+								</li><li><a href="/sw_ap2/app/Zorg/CS/DomainSwap.aspx">Swap domains</a><br />
+								</li><li><a href="/sw_ap2/app/Zorg/CS/MarketingHomeMsg.aspx">Marketing Center Home Message</a><br />
+								</li><li><a href="/sw_ap2/app/Zorg/CS/EditVendorContent.aspx">Edit vendor header/footer</a><br />
+								</li><li><a href="/sw_ap2/app/Zorg/CS/ProjectInitiationSetup.aspx">User for Project Initiation</a><br />
+								</li><li><a href="/sw_ap2/app/Zorg/CS/SSOSetup.aspx">SSO Setup</a><br />
+								</li><li><a href="/sw_ap2/app/Zorg/CS/MarketingCampaignMsg.aspx">Marketing Campaigns Message</a><br />
+								</li><li><a href="/sw_ap2/app/Zorg/CS/WiaBAdmin.aspx">WiaB Admin</a><br />
+								</li><li><a href="/sw_ap2/app/Zorg/CS/AdminDripInCampaign.aspx">Drip in Campaign Admin</a></li>
+								<li><a href="/sw_ap2/app/Zorg/CS/AttachFileToCampaign.aspx">Attach files to a Plan</a></li>
+								<li><a href="/sw_ap2/app/Zorg/CS/AdminSocialMessageRecipient.aspx">Edit Recipient of Messages for Social Campaigns</a></li>
+								<li><a href="/sw_ap2/app/Zorg/CS/CampaignPullWatchList.aspx">Campaign Pull Watch List</a></li>
+								<li><a href="/sw_ap2/app/Zorg/CS/CustomEmbeddedReports.aspx">Custom Embedded Reports</a></li>
+								<li><a href="/sw_ap2/app/Zorg/CS/RegionSetup.aspx">Setup Vendor Regions</a></li>
+								<li><a href="/sw_ap2/app/Zorg/CS/CampaignHistoryReport.aspx">Campaign History Report</a></li>
+							
+						</span>
+					</td>
+				</tr>
+			</tbody></table>
+			</div>
+		</td>
+		<td></td>
+		<td colspan="2">
+			<font color="White" face="Verdana" size="1">oracle_native_qa</font> 
+			
+		</td>
+	</tr>
+</tbody></table>
+
+
+<table width="100%" border="0" cellpadding="5">
+	<tbody><tr>
+		<td valign="top" width="35%">
+		
+				
+					<span class="normal_small_text">
+					<span class="normal_small_bold">Site ID:</span> 
+					<a href="/customerservice/CustomerServiceLog2.cfm?CompanySiteID=48482">
+					48482</a>
+					<br /><br />
+					<span class="normal_small_bold">StructuredWeb QA</span><br />
+					Murloc Shmurloc<br />
+					355 Fake St.<br />
+					Brooklyn, 
+					New York 52491<br />
+					<br />
+					
+						<span class="normal_small_bold">				
+						Phone: 
+						</span>
+						(646) 7388000 <br />
+									
+					<span class="normal_small_bold">eMail:</span> 
+					<a href="mailto:qa+hgurung@swstaging.com">
+					qa+hgurung@swstaging.com</a><br />
+					<span class="normal_small_bold">URL:</span> 
+					
+						<a href="http://www.structuredwebqa.localvar.com.sw-qa.com" target="_blank">
+						www.structuredwebqa.localvar.com.sw-qa.com</a>
+					
+					<br /><br />
+					</span>
+			
+		</td>
+		<td valign="top" width="40%">
+		
+			<span class="normal_small_text">
+			
+				<span class="normal_small_bold">Started:</span> 
+				August 30, 2016 - 6:47 PM <br />
+				<span class="normal_small_bold">Status:</span> 
+					<span class="normal_error_text">Published</span> <br />
+				<span class="normal_small_bold">Terms of Use:</span> 
+				
+					Accepted
+				
+				<br />
+				
+					<span class="normal_small_bold">Annual Renewal Date:</span>
+					<span class="normal_small_text"> August 30, 2017</span><br />
+					
+					<span class="normal_small_bold">Monthly Renewal Date:</span>
+					<span class="normal_small_text"> June 28, 2017</span><br />
+					
+				<span class="normal_small_bold">Renewal Billing Method:</span>
+				Check<br />
+				<span class="normal_small_bold">Renewal Terms:</span>
+				Due Upon Receipt<br />
+			
+			</span>
+			
+			
+					<span class="normal_small_bold">Billing Contact details</span><br />
+					<span class="normal_small_text">
+					Murloc Shmurloc, StructuredWeb QA<br />
+					355 Fake St.<br />
+					Brooklyn, 
+					NY 52491<br />
+					
+						<span class="normal_small_bold">				
+						Phone: 
+						</span>
+						(646) 7388000 <br />
+					
+					<span class="normal_small_bold">eMail:</span> 
+					<a href="mailto:NOT_SET@structuredweb.com">
+					NOT_SET@structuredweb.com</a><br />
+					</span>
+				
+		</td>
+		
+		<script language="JavaScript">
+			function AssignAccMgr(UserID)
+			{
+				
+				var url = "/customerservice/Views/AccountManagerUpdate.cfm?CompanySiteID=48482&amp;UserID=" + UserID + "&amp;DT=" + new Date().getTime();
+				
+				
+				http.open("GET", url, true);
+				http.onreadystatechange = handleAssignAccMgr;
+				http.send(null);
+			}
+			
+			function handleAssignAccMgr() 
+			{
+				if (http.readyState == 4) 
+				{
+					result = '';
+					result = http.responseText;
+					
+					document.getElementById("AccMgrUpdated").innerHTML = result;
+				}
+			}
+			
+			function AssignSalesMgr(SalesMgrID)
+			{
+				
+				var url = "/customerservice/Views/SalesRepUpdate.cfm?CompanySiteID=48482&amp;SalesMgrID=" + SalesMgrID + "&amp;DT=" + new Date().getTime();
+				
+				
+				http.open("GET", url, true);
+				http.onreadystatechange = handleAssignSalesMgr;
+				http.send(null);
+			}
+			
+			function handleAssignSalesMgr() 
+			{
+				if (http.readyState == 4) 
+				{
+					result = '';
+					result = http.responseText;
+					
+					document.getElementById("SalesMgrUpdated").innerHTML = result;
+				}
+			}
+			function ChangeBillingNotices(BillingNoticesFlag)
+			{
+				
+				var url = "/customerservice/Views/BillingNoticesUpdate.cfm?CompanySiteID=48482&amp;Flag=" + BillingNoticesFlag + "&amp;DT=" + new Date().getTime();
+				
+				
+				http.open("GET", url, true);
+				http.onreadystatechange = handleChangeBillingNotices;
+				http.send(null);
+			}
+			
+			function handleChangeBillingNotices() 
+			{
+				if (http.readyState == 4) 
+				{
+					result = '';
+					result = http.responseText;
+					window.location.reload();
+					//document.getElementById("BillingNoticesUpdated").innerHTML = result;
+				}
+			}
+			
+		</script>
+
+		
+		<td valign="top" width="25%">
+			
+			<table>
+				<tbody><tr>
+					<td>
+						<span class="normal_small_bold">
+						Account Manager: 
+						</span>
+					</td>
+					<td>
+						<span class="normal_small_text">
+						
+								Not Assigned
+							
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<span class="normal_small_bold">
+						Sales Manager: 
+						</span>
+					</td>
+					<td>
+						<span class="normal_small_text">
+						
+								Not Assigned
+							
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<span class="normal_small_bold">
+						Industry: 
+						</span>
+					</td>
+					<td>
+
+						<span class="normal_small_text">
+						StructuredWeb QA (68)
+						
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<span class="normal_small_bold">
+						Billing notices: 
+						</span>
+					</td>
+                    
+					<td>
+                    	<span class="normal_small_text">
+                        
+                        	Active
+                        
+                        </span>
+                    </td>
+                    
+				</tr>
+			</tbody></table>
+		</td>
+	</tr>
+</tbody></table>
+<script language="JavaScript">
+&lt;!-- Begin
+
+var referpop0=true;
+function combopop0() {
+if (referpop0) {
+  document.all.contentspop0.style.visibility="visible";
+  referpop0=false;
+}
+else {
+  document.all.contentspop0.style.visibility="hidden";
+  referpop0=true;
+}
+}
+
+var referpop1=true;
+function combopop1() {
+if (referpop1) {
+  document.all.contentspop1.style.visibility="visible";
+  referpop1=false;
+}
+else {
+  document.all.contentspop1.style.visibility="hidden";
+  referpop1=true;
+}
+}
+
+var referpop2=true;
+function combopop2() {
+if (referpop2) {
+  document.all.contentspop2.style.visibility="visible";
+  referpop2=false;
+}
+else {
+  document.all.contentspop2.style.visibility="hidden";
+  referpop2=true;
+}
+}
+
+var referpop3=true;
+function combopop3() {
+if (referpop3) {
+  document.all.contentspop3.style.visibility="visible";
+  referpop3=false;
+}
+else {
+  document.all.contentspop3.style.visibility="hidden";
+  referpop3=true;
+}
+}
+
+var referpop4=true;
+function combopop4() {
+if (referpop4) {
+  document.all.contentspop4.style.visibility="visible";
+  referpop4=false;
+}
+else {
+  document.all.contentspop4.style.visibility="hidden";
+  referpop4=true;
+}
+}
+
+var referpop5=true;
+function combopop5() {
+if (referpop5) {
+  document.all.contentspop5.style.visibility="visible";
+  referpop5=false;
+}
+else {
+  document.all.contentspop5.style.visibility="hidden";
+  referpop5=true;
+}
+}
+
+//  End --&gt;
+</script>
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" background="/customerservice/images/cust_bg.gif">
+	<tbody><tr>
+		
+		<td width="12%" height="20" align="center">
+			<a href="/sw_ap2/customerservice/ServiceCall2.cfm?CustomerID=48482&amp;CompanySiteID=48482" style="text-decoration: none; color: Black; font-family: Verdana; font-size: 11px;">
+			Add Call</a></td>
+		<td width="12%" height="20" align="center">
+			<a href="/sw_ap2/customerservice/NoteAdd.cfm?CustomerID=48482&amp;CompanySiteID=48482" style="text-decoration: none; color: Black; font-family: Verdana; font-size: 11px;">
+			Add Note</a></td>
+		<td width="12%" height="20" align="center">
+			<a href="/sw_ap2/customerservice/LoginToApp.cfm?CompanySiteID=48482" target="_blank" style="text-decoration: none; color: Black; font-family: Verdana; font-size: 11px;">
+			Login</a></td>
+		<td width="12%" height="20" align="center">
+			<a href="Javascript:combopop0()" style="text-decoration: none; color: Black; font-family: Verdana; font-size: 11px;">
+			Billing</a></td>
+		<td width="12%" height="20" align="center">
+			<a href="Javascript:combopop2()" style="text-decoration: none; color: Black; font-family: Verdana; font-size: 11px;">
+			Content</a></td>
+		<td width="12%" height="20" align="center">
+			<a href="/sw_ap2/customerservice/CustomerServiceLog2.cfm?CompanySiteID=48482&amp;Info=Users" style="text-decoration: none; color: Black; font-family: Verdana; font-size: 11px;">
+			User Information</a></td>
+		<td width="12%" height="20" align="center">
+			<a href="/sw_ap2/customerservice/CustomerServiceLog2.cfm?CompanySiteID=48482&amp;Info=DNS" style="text-decoration: none; color: Black; font-family: Verdana; font-size: 11px;">
+			DNS Log</a></td>
+		<td width="12%" height="20" align="center">
+			<a href="Javascript:combopop1()" style="text-decoration: none; color: Black; font-family: Verdana; font-size: 11px;">
+			Customer Reports</a></td>
+		
+	</tr>
+	<tr bgcolor="Black">
+		<td>
+			
+		</td>
+		<td>
+			
+		</td>
+		<td>
+			
+		</td>
+		<td>
+			
+			<div id="contentspop0" style="position:absolute; left:?px; top:?px; width:?px; height:?px; z-index:1; visibility:hidden">
+			<table width="150" border="0" cellspacing="0" cellpadding="5" bordercolor="000000">
+				<tbody><tr>
+					<td bgcolor="D7DEED">
+						<span class="normal_small_text">
+						
+						<a href="/sw_ap2/customerservice/New_Order_Add_1.cfm?CompanySiteID=48482">
+						New Order</a>
+						<br /><br />
+						<a href="/sw_ap2/customerservice/CustomerServiceLog2.cfm?CompanySiteID=48482&amp;Info=PricePlans">
+						Price Plan</a>
+						<br /><br />
+						<a href="/sw_ap2/customerservice/CustomerBillingLog.cfm?CompanySiteID=48482">
+						Billing History
+						</a><br /><br />
+						<a href="http://qa3/CustomerService/CC_info.cfm?CompanySiteID=48482&amp;Info=CC_Info">
+						Credit Card</a>
+						<br /><br />
+						
+						
+						<a href="/sw_ap2/customerservice/Create_credit.cfm?CompanySiteID=48482">
+						Sales Return</a><br /><br />
+						<a href="/sw_ap2/customerservice/create_summary_inv.cfm?CompanySiteID=48482">
+						Create Summary Invoice</a><br /><br />
+						
+							<a href="/sw_ap2/customerservice/Cancel.cfm?CompanySiteID=48482&amp;CancelID=1">
+							Cancel Site</a>
+						
+						<br /><br />
+						
+							<a href="/sw_ap2/customerservice/TestSite.cfm?CompanySiteID=48482&amp;test=yes">
+							Make this site a test site</a>
+						
+						<br /><br />
+						
+							<a href="/sw_ap2/customerservice/ContentManagerSite.cfm?CompanySiteID=48482&amp;manager=yes">
+							Make this site a content manager</a>
+						
+						<br /><br />
+						<a href="/sw_ap2/customerservice/add_am_pm_2_site.cfm?CompanySiteID=48482">
+						Add Account and Program Manager to site</a>
+						<br /><br />
+						<a href="/sw_ap2/customerservice/UpdateRenewalDate.cfm?CompanySiteID=48482">
+						Renewal Terms</a>
+						<br /><br />
+						<a href="/sw_ap2/customerservice/UpdateMonthlyRenewal.cfm?CompanySiteID=48482">
+						Set Monthly Renewal Date</a>
+						<br /><br />
+						<a href="/sw_ap2/customerservice/Early_Renewal.cfm?CompanySiteID=48482">
+						Renew Account Early</a>
+						<br /><br />
+						<a href="/sw_ap2/customerservice/ClaimCommission2.cfm?CustomerID=48482&amp;CompanySiteID=48482">
+						Claim this commission</a>
+						<br /><br />
+						<a href="/customerservice/views/ProspectList.cfm?CompanySiteID=48482">
+						Prepaid prospect list</a>
+						<br /><br />
+						
+						</span>
+					</td>
+				</tr>
+			</tbody></table>
+			</div>
+		</td>
+		<td>
+			
+			<div id="contentspop2" style="position:absolute; left:?px; top:?px; width:?px; height:?px; z-index:1; visibility:hidden">
+			<table width="150" border="0" cellspacing="0" cellpadding="5" bordercolor="000000">
+				<tbody><tr>
+					<td bgcolor="D7DEED">
+						
+						<span class="normal_small_text">
+						<a href="/customerservice/CustomerServiceLog2.cfm?CompanySiteID=48482&amp;Info=/customerservice/managedcontent/CustomerBundleList">
+						Bundle</a>
+						<br /><br />
+						<a href="/customerservice/CustomerServiceLog2.cfm?CompanySiteID=48482&amp;Info=/customerservice/managedcontent/CustomerFormList">
+						Forms</a>
+						<br /><br />
+						<a href="/customerservice/CustomerServiceLog2.cfm?CompanySiteID=48482&amp;Info=/customerservice/managedcontent/CustomerPageList">
+						Pages</a>
+						<br /><br />
+						<a href="/customerservice/managedcontent/CustomerMenu.cfm?CompanySiteID=48482">
+						Menu</a>
+						<br /><br />
+						
+						<a href="/customerservice/managedcontent/CustomerSettings.cfm?CompanySiteID=48482">
+						Settings</a>
+						<br /><br />
+						<a href="/customerservice/views/Territory.cfm?CompanySiteID=48482">
+						Territory</a>
+						<br /><br />
+						<a href="/customerservice/views/CampaignMailing.cfm?CompanySiteID=48482">
+						Invalid Mailing</a>
+						<br /><br />
+						<a href="/customerservice/managedcontent/GroupSplit.cfm?CompanySiteID=48482">
+						Split Group</a>
+						<br /><br />
+						<a href="/sw_ap2/customerservice/VendorCatalogAdd.cfm?CompanySiteID=48482">
+						Add a catalog</a>
+						<br /><br />
+						<a href="/sw_ap2/customerservice/RemoveVendorCatalog.cfm?CompanySiteID=48482&amp;SwapOnly=Yes">
+						Remove a catalog</a>
+						<br /><br />
+						<a href="/sw_ap2/customerservice/DomainAdd.cfm?CompanySiteID=48482">
+						Add/Remove Domains</a>
+						<br /><br />
+						<a href="/sw_ap2/customerservice/AnalyticAdd.cfm?CompanySiteID=48482">
+						Add/Remove Analytic </a>
+						<br /><br />
+						<a href="/sw_ap2/customerservice/PrivateVirtualAdd.cfm?CompanySiteID=48482">
+						Add/Remove URL alias</a>
+						<br /><br />
+						</span>
+						
+					</td>
+				</tr>
+			</tbody></table>
+			</div>
+		</td>
+		<td>
+			
+		</td>
+		<td>
+			
+		</td>
+		<td>
+			
+			<div id="contentspop1" style="position:absolute; left:?px; top:?px; width:?px; height:?px; z-index:1; visibility:hidden">
+			<table width="150" border="0" cellspacing="0" cellpadding="5" bordercolor="000000">
+				<tbody><tr>
+					<td bgcolor="D7DEED">
+						<span class="normal_small_text">
+						
+						<a href="/sw_ap2/customerservice/CustomerServiceLog2.cfm?CompanySiteID=48482&amp;Info=App_Status">
+						Application Status</a>
+						<br /><br />
+						<a href="/sw_ap2/customerservice/CustomerProfile.cfm?CustomerID=48482&amp;CompanySiteID=48482">
+						View the profile for this customer</a>
+						<br /><br />
+						<a href="Javascript:DaughterWindow2('Views/CustomerUsage.cfm?CompanySiteID=48482');">
+						Usage statistics for this site</a>
+						<br /><br />
+						
+						</span>
+					</td>
+				</tr>
+			</tbody></table>
+			</div>
+		</td>
+		<td>
+			
+		</td>
+	</tr>
+</tbody></table> 
+	<table width="100%">
+		
+		<tbody><tr>
+			<td valign="top" width="60%">
+				<iframe id="myframe1" src="/customerservice/views/ServiceCallLog.cfm?CompanySiteID=48482" width="100%" scrolling="no" frameborder="0" height="121" style="display: block;"></iframe>
+			</td>
+			<td valign="top" width="40%">
+				<iframe id="myframe2" src="/customerservice/views/Projects.cfm?CompanySiteID=48482" width="100%" scrolling="no" frameborder="0" height="101" style="display: block;"></iframe>
+				
+			</td>
+		</tr>
+		
+	</tbody></table>
+
+
+
+</body></html>

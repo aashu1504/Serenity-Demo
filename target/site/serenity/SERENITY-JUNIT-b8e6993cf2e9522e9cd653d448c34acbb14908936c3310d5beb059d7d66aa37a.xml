@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><testsuite errors="1" failures="0" name="features.EmailDownload.HtmlAndOftDownloadForEmails" skipped="0" tests="1" time="15.4" timestamp="2017-07-199 12:15:44"><testcase classname="features.EmailDownload.HtmlAndOftDownloadForEmails" name="Should be able to download html and oft file from program manager"><error type="java.lang.NullPointerException"/><system-err>null
+utility.GenericClass.switchToSecondWindow(GenericClass.java:18)
+steps.UserStepsForEmailDownload.switchToSecondWindow(UserStepsForEmailDownload.java:35)
+features.EmailDownload.HtmlAndOftDownloadForEmails.shouldBeAbleToDownloadHtmlAndOftFileFromProgramManager(HtmlAndOftDownloadForEmails.java:30)
+org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)
+org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459)
+org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:678)
+org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382)
+org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192)
+</system-err></testcase></testsuite>

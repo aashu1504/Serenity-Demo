@@ -1,0 +1,9 @@
+-------------------------------------------------------------------------------
+Test set: features.EmailDownload.HtmlAndOftDownloadForEmails
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 12.68 sec <<< FAILURE! - in features.EmailDownload.HtmlAndOftDownloadForEmails
+shouldBeAbleToDownloadHtmlAndOftFileFromProgramManager(features.EmailDownload.HtmlAndOftDownloadForEmails)  Time elapsed: 11.063 sec  <<< ERROR!
+java.lang.NullPointerException: null
+	at steps.UserStepsForEmailDownload.selectTheRoleAs(UserStepsForEmailDownload.java:40)
+	at features.EmailDownload.HtmlAndOftDownloadForEmails.shouldBeAbleToDownloadHtmlAndOftFileFromProgramManager(HtmlAndOftDownloadForEmails.java:30)
+
