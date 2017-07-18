@@ -1,0 +1,97 @@
+<acceptance-test-run title="Should be able to download html and oft file from content manager" name="shouldBeAbleToDownloadHtmlAndOftFileFromContentManager" steps="14" successful="14" failures="0" skipped="0" ignored="0" pending="0" result="SUCCESS" duration="73761" timestamp="2017-07-18T12:03:58.862+05:30" session-id="f9d9ef016e4e5647d0d4159cd7deae97">
+  <user-story id="features.EmailTemplateDownload.EmailTemplateDownloadAsHtmlAndOft" name="Email template download as html and oft" path="features.EmailTemplateDownload"/>
+  <tags>
+    <tag name="Email template download" type="feature"/>
+    <tag name="Email template download/Email template download as html and oft" type="story"/>
+  </tags>
+  <test-step result="SUCCESS" duration="18071">
+    <screenshots>
+      <screenshot image="77a1d453d3b2ecdc274aaeeff261dac2.png"/>
+    </screenshots>
+    <description>Is on structured web home page</description>
+  </test-step>
+  <test-step result="SUCCESS" duration="2699">
+    <screenshots>
+      <screenshot image="103f1b5cd3d13178360f276ce6a6f820.png"/>
+      <screenshot image="557ea2e4ef20b7e5c43d66f263f74efc.png"/>
+    </screenshots>
+    <description>Enters site ID: &lt;span class=&apos;step-parameter&apos;&gt;48482&lt;/span&gt;</description>
+  </test-step>
+  <test-step result="SUCCESS" duration="1540">
+    <screenshots>
+      <screenshot image="5af29fc099f6465f9d4be6df739113c5.png"/>
+    </screenshots>
+    <description>Clicks on login</description>
+  </test-step>
+  <test-step result="SUCCESS" duration="16428">
+    <screenshots>
+      <screenshot image="b25dc996150b7eda6591312398ad280c.png"/>
+    </screenshots>
+    <description>Select the role as: &lt;span class=&apos;step-parameter&apos;&gt;Content Manager&lt;/span&gt;</description>
+  </test-step>
+  <test-step result="SUCCESS" duration="3516">
+    <screenshots>
+      <screenshot image="2edddf87c5acd8c5b628209ce28934ca.png"/>
+    </screenshots>
+    <description>Click on templates tab</description>
+  </test-step>
+  <test-step result="SUCCESS" duration="2914">
+    <screenshots>
+      <screenshot image="2edddf87c5acd8c5b628209ce28934ca.png"/>
+    </screenshots>
+    <description>Click email sub tab</description>
+  </test-step>
+  <test-step result="SUCCESS" duration="5955">
+    <screenshots>
+      <screenshot image="7fbfb82a9522554b2eb62f477d879a5b.png"/>
+    </screenshots>
+    <description>Click new email template</description>
+  </test-step>
+  <test-step result="SUCCESS" duration="765">
+    <screenshots>
+      <screenshot image="abefa23b6aee82167aa196eb095d175b.png"/>
+      <screenshot image="08c07920e252f58a5fea5050bc16ba7a.png"/>
+    </screenshots>
+    <description>Enter email template name: &lt;span class=&apos;step-parameter&apos;&gt;Email Template To Test&lt;/span&gt;</description>
+  </test-step>
+  <test-step result="SUCCESS" duration="755">
+    <screenshots>
+      <screenshot image="ca18f68ea2ecb059025f657c28cd0d6f.png"/>
+      <screenshot image="0a4ee3ed40130c930a78e3beb34e86da.png"/>
+    </screenshots>
+    <description>Enter email template description: &lt;span class=&apos;step-parameter&apos;&gt;This is a template email to test&lt;/span&gt;</description>
+  </test-step>
+  <test-step result="SUCCESS" duration="7548">
+    <screenshots>
+      <screenshot image="7cc9a70fb99ad72e434ee7fc6a420620.png"/>
+    </screenshots>
+    <description>Click save email template</description>
+  </test-step>
+  <test-step result="SUCCESS" duration="738">
+    <screenshots>
+      <screenshot image="65972d719acd5a04fd40e47a8b5b5203.png"/>
+      <screenshot image="7be2e95a918ec09eb2c2255f8cc814d2.png"/>
+    </screenshots>
+    <description>Enter email template content: &lt;span class=&apos;step-parameter&apos;&gt;This is the content to be written in editor&lt;/span&gt;</description>
+  </test-step>
+  <test-step result="SUCCESS" duration="3727">
+    <screenshots>
+      <screenshot image="d2e697384d3723485be8c7797df5717d.png"/>
+    </screenshots>
+    <description>Click save email template</description>
+  </test-step>
+  <test-step result="SUCCESS" duration="4369">
+    <screenshots>
+      <screenshot image="0e44d7664b6d7e520b59b15d9593c8f5.png"/>
+      <screenshot image="542784408829c7e53365d2daf73ef080.png"/>
+    </screenshots>
+    <description>Click tactics tab</description>
+  </test-step>
+  <test-step result="SUCCESS" duration="4707">
+    <screenshots>
+      <screenshot image="eb7918ed9778e9d0321656ad647c8574.png"/>
+      <screenshot image="542784408829c7e53365d2daf73ef080.png"/>
+    </screenshots>
+    <description>Click email sub tab</description>
+  </test-step>
+</acceptance-test-run>

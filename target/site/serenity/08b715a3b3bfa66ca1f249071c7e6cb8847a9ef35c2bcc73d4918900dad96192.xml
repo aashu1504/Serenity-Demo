@@ -1,0 +1,7 @@
+<acceptance-test-run title="Should be able to download html and oft file from marketing center" name="shouldBeAbleToDownloadHtmlAndOftFileFromMarketingCenter" steps="0" successful="0" failures="0" skipped="0" ignored="0" pending="0" annotated-result="PENDING" result="PENDING" duration="70" timestamp="2017-07-18T12:03:57.442+05:30">
+  <user-story id="features.EmailDownload.EmailDownloadAsHtmlAndOft" name="Email download as html and oft" path="features.EmailDownload"/>
+  <tags>
+    <tag name="Email download" type="feature"/>
+    <tag name="Email download/Email download as html and oft" type="story"/>
+  </tags>
+</acceptance-test-run>
