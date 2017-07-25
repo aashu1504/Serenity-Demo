@@ -1,0 +1,7 @@
+<acceptance-test-run title="Should be able to download as PDF from content manager" name="shouldBeAbleToDownloadAsPDFFromContentManager" steps="0" successful="0" failures="0" skipped="0" ignored="0" pending="0" annotated-result="IGNORED" result="IGNORED" duration="0" timestamp="2017-07-25T17:07:04.483+05:30">
+  <user-story id="features.EmailTemplateDownload.DownloadAsPdf" name="Download as pdf" path="features.EmailTemplateDownload"/>
+  <tags>
+    <tag name="Email template download" type="feature"/>
+    <tag name="Email template download/Download as pdf" type="story"/>
+  </tags>
+</acceptance-test-run>

@@ -35,8 +35,8 @@
         var plot1 = $.jqplot('coverage_pie_chart', [
             [
                 ['Passing', 0],
-                ['Pending', 1],
-                ['Ignored', 0],
+                ['Pending', 0],
+                ['Ignored', 1],
                 ['Failing', 0],
                 ['Errors',  0],
                 ['Compromised Tests',  0],
@@ -167,7 +167,7 @@
             <a href="2a4631d87648e59c428d4cf0e9247f9d286e4679f436ca2ce872e931eb4dfd58.html"><i class="fa fa-comments-o"></i> Stories</a>
         </li>
     </ul>
-    <span class="date-and-time"><a href="build-info.html"><i class="fa fa-info-circle"></i></a> Report generated 18-07-2017 12:05</span>
+    <span class="date-and-time"><a href="build-info.html"><i class="fa fa-info-circle"></i></a> Report generated 25-07-2017 17:07</span>
     <br style="clear:left"/>
 </div>
 
@@ -207,8 +207,8 @@
                                         <td>1</td>
                                         <td>0</td>
                                         <td>0</td>
-                                        <td>1</td>
                                         <td>0</td>
+                                        <td>1</td>
                                         <td>0</td>
                                     </tr>
                                 <tr>
@@ -216,8 +216,8 @@
                                     <td>1</td>
                                     <td>0</td>
                                     <td>0</td>
-                                    <td>1</td>
                                     <td>0</td>
+                                    <td>1</td>
                                     <td></td>
                                 </tr>
                                 </body>
@@ -247,8 +247,8 @@
             <td>1</td>
             <td>0 (0%)</td>
             <td>0 (0%)</td>
-            <td>1 (100%)</td>
             <td>0 (0%)</td>
+            <td>1 (100%)</td>
         </tr>
         <tr>
             <td class="summary-leading-column">Manual</td>
@@ -263,8 +263,8 @@
             <td>1</td>
             <td>0 (0%)</td>
             <td>0 (0%)</td>
-            <td>1 (100%)</td>
             <td>0 (0%)</td>
+            <td>1 (100%)</td>
         </tr>
         <tr>
             <td class="summary-leading-column">Total Duration</td>
@@ -308,18 +308,6 @@
                 <th class="test-results-heading" width="25px">
                     <i class="fa fa-chain-broken fa-lg" title="Tests compromised"></i>
                 </th>
-                    <th class="test-results-heading" width="75px">Manual<br/>Tests</th>
-                    <th class="test-results-heading" width="25px"><i class="fa fa-check-square-o"
-                                                                     title="Tests passed (manual)"></i>
-                    </th>
-                    <th class="test-results-heading" width="25px"><i class="fa fa-square-o"
-                                                                     title="Tests skipped or pending (manual)">
-                    </th>
-                    <th class="test-results-heading" width="25px"><i class="fa fa-times-circle"
-                                                                     title="Tests failed (manual)"></th>
-                    <th class="test-results-heading" width="25px"><i
-                            class="fa fa-exclamation-triangle"
-                            title="Tests failed with an error (manual)"></th>
 
 
                 <th width="125px" class="test-results-heading">Coverage</th>
@@ -327,14 +315,14 @@
             <tbody>
 
 
-                <tr class="test-PENDING requirementRow">
+                <tr class="test-IGNORED requirementRow">
                     <td class="requirementRowCell">
-                        <span class="status_icon"><i class='fa fa-square-o pending-icon ' title='PENDING'></i></span>
+                        <span class="status_icon"><i class='fa fa-ban ignored-icon ' title='IGNORED'></i></span>
                         <span style="display:none">2</span>
                     </td>
                     <td class="cardNumber requirementRowCell"></td>
 
-                    <td class="PENDING-text requirementRowCell">
+                    <td class="IGNORED-text requirementRowCell">
                     <a href="javaScript:void(0)" class="read-more-link">
                     <img src="images/plus.png" height="16"/></a>
                         <span class="requirementName"><a
@@ -351,11 +339,6 @@
                     <td class="redtext requirementRowCell">0</td>
                     <td class="lightorangetext requirementRowCell">0</td>
                     <td class="violettext requirementRowCell">0</td>
-                        <td class="greentext highlighted-value requirementRowCell">0</td>
-                        <td class="greentext requirementRowCell">0</td>
-                        <td class="bluetext requirementRowCell">0</td>
-                        <td class="redtext requirementRowCell">0</td>
-                        <td class="lightorangetext requirementRowCell">0</td>
 
                     <td width="125px" class="lightgreentext requirementRowCell">
 
@@ -374,19 +357,19 @@ Tests implemented: 1
   - Compromised tests 0 (0% of specified requirements)
 
 Tests not implemented or not executed: 1
-  - Pending tests: 1 (100% of specified requirements)
-  - Ignored or skipped tests: 0 (0% of specified requirements)
+  - Pending tests: 0 (0% of specified requirements)
+  - Ignored or skipped tests: 1 (100% of specified requirements)
 
 Requirements specified:     1
 Requirements with no tests: 0
 
 
 Estimated unimplemented tests: 0
-Estimated unimplemented or pending requirements: 100%
-Estimated ignored or skipped requirements: 0%"
+Estimated unimplemented or pending requirements: 0%
+Estimated ignored or skipped requirements: 100%"
                                          style="width: 125px;">
                                         <div class="ignoredbar"
-                                             style="width: 0px;"
+                                             style="width: 125px;"
                                              title="Email download as html and oft
 Tests implemented: 1
   - Passing tests: 0 (0% of specified requirements)
@@ -395,16 +378,16 @@ Tests implemented: 1
   - Compromised tests 0 (0% of specified requirements)
 
 Tests not implemented or not executed: 1
-  - Pending tests: 1 (100% of specified requirements)
-  - Ignored or skipped tests: 0 (0% of specified requirements)
+  - Pending tests: 0 (0% of specified requirements)
+  - Ignored or skipped tests: 1 (100% of specified requirements)
 
 Requirements specified:     1
 Requirements with no tests: 0
 
 
 Estimated unimplemented tests: 0
-Estimated unimplemented or pending requirements: 100%
-Estimated ignored or skipped requirements: 0%">
+Estimated unimplemented or pending requirements: 0%
+Estimated ignored or skipped requirements: 100%">
                                             <div class="compromisedbar"
                                                  style="width: 0px;"
                                                  title="Email download as html and oft
@@ -415,16 +398,16 @@ Tests implemented: 1
   - Compromised tests 0 (0% of specified requirements)
 
 Tests not implemented or not executed: 1
-  - Pending tests: 1 (100% of specified requirements)
-  - Ignored or skipped tests: 0 (0% of specified requirements)
+  - Pending tests: 0 (0% of specified requirements)
+  - Ignored or skipped tests: 1 (100% of specified requirements)
 
 Requirements specified:     1
 Requirements with no tests: 0
 
 
 Estimated unimplemented tests: 0
-Estimated unimplemented or pending requirements: 100%
-Estimated ignored or skipped requirements: 0%">
+Estimated unimplemented or pending requirements: 0%
+Estimated ignored or skipped requirements: 100%">
                                                 <div class="errorbar"
                                                      style="width: 0px;"
                                                      title="Email download as html and oft
@@ -435,16 +418,16 @@ Tests implemented: 1
   - Compromised tests 0 (0% of specified requirements)
 
 Tests not implemented or not executed: 1
-  - Pending tests: 1 (100% of specified requirements)
-  - Ignored or skipped tests: 0 (0% of specified requirements)
+  - Pending tests: 0 (0% of specified requirements)
+  - Ignored or skipped tests: 1 (100% of specified requirements)
 
 Requirements specified:     1
 Requirements with no tests: 0
 
 
 Estimated unimplemented tests: 0
-Estimated unimplemented or pending requirements: 100%
-Estimated ignored or skipped requirements: 0%">
+Estimated unimplemented or pending requirements: 0%
+Estimated ignored or skipped requirements: 100%">
                                                     <div class="failingbar"
                                                          style="width: 0px;"
                                                          title="Email download as html and oft
@@ -455,16 +438,16 @@ Tests implemented: 1
   - Compromised tests 0 (0% of specified requirements)
 
 Tests not implemented or not executed: 1
-  - Pending tests: 1 (100% of specified requirements)
-  - Ignored or skipped tests: 0 (0% of specified requirements)
+  - Pending tests: 0 (0% of specified requirements)
+  - Ignored or skipped tests: 1 (100% of specified requirements)
 
 Requirements specified:     1
 Requirements with no tests: 0
 
 
 Estimated unimplemented tests: 0
-Estimated unimplemented or pending requirements: 100%
-Estimated ignored or skipped requirements: 0%">
+Estimated unimplemented or pending requirements: 0%
+Estimated ignored or skipped requirements: 100%">
                                                         <div class="passingbar"
                                                              style="width: 0px;"
                                                              title="Email download as html and oft
@@ -475,16 +458,16 @@ Tests implemented: 1
   - Compromised tests 0 (0% of specified requirements)
 
 Tests not implemented or not executed: 1
-  - Pending tests: 1 (100% of specified requirements)
-  - Ignored or skipped tests: 0 (0% of specified requirements)
+  - Pending tests: 0 (0% of specified requirements)
+  - Ignored or skipped tests: 1 (100% of specified requirements)
 
 Requirements specified:     1
 Requirements with no tests: 0
 
 
 Estimated unimplemented tests: 0
-Estimated unimplemented or pending requirements: 100%
-Estimated ignored or skipped requirements: 0%">
+Estimated unimplemented or pending requirements: 0%
+Estimated ignored or skipped requirements: 100%">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -522,11 +505,11 @@ Estimated ignored or skipped requirements: 0%">
                         </thead>
                         <tbody>
 
-                            <tr class="test-PENDING">
-                                <td><span class="summary-icon"><i class='fa fa-square-o pending-icon ' title='PENDING'></i></span>
+                            <tr class="test-IGNORED">
+                                <td><span class="summary-icon"><i class='fa fa-ban ignored-icon ' title='IGNORED'></i></span>
                                     
-                                    <span style="display:none">PENDING</span></td>
-                                <td class="PENDING-text">
+                                    <span style="display:none">IGNORED</span></td>
+                                <td class="IGNORED-text">
                                     <a href="08b715a3b3bfa66ca1f249071c7e6cb8847a9ef35c2bcc73d4918900dad96192.html" class="ellipsis" title="">
                                     Should be able to download html and oft file from marketing center 
                                     </a>
@@ -535,7 +518,7 @@ Estimated ignored or skipped requirements: 0%">
                                 <td class="lightgreentext">0</td>
 
 
-                                <td class="lightgreentext">0.07</td>
+                                <td class="lightgreentext">0</td>
                             </tr>
                         </tbody>
                     </table>

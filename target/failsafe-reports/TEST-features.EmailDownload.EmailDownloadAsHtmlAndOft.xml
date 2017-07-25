@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="features.EmailDownload.EmailDownloadAsHtmlAndOft" time="0" tests="1" errors="0" skipped="1" failures="0">
+<testsuite name="features.EmailDownload.EmailDownloadAsHtmlAndOft" time="0" tests="2" errors="0" skipped="2" failures="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/jre/lib"/>
@@ -26,7 +26,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="os.name" value="Mac OS X"/>
-    <property name="classworlds.conf" value="/Users/ashishu/Documents/Talentica Projects/Structured Web/.metadata/.plugins/org.eclipse.m2e.launching/launches/m2conf8473679232084781533.tmp"/>
+    <property name="classworlds.conf" value="/Users/ashishu/Documents/Talentica Projects/Structured Web/.metadata/.plugins/org.eclipse.m2e.launching/launches/m2conf4356369333361031541.tmp"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
     <property name="java.library.path" value="/Users/ashishu/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
@@ -63,13 +63,15 @@
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase name="features.EmailDownload.EmailDownloadAsHtmlAndOft" classname="features.EmailDownload.EmailDownloadAsHtmlAndOft" time="0">
+  <testcase name="shouldBeAbleToDownloadHtmlAndOftFileFromMarketingCenter" classname="features.EmailDownload.EmailDownloadAsHtmlAndOft" time="0">
     <skipped/>
     <system-err><![CDATA[[main] INFO net.thucydides.core.util.PropertiesFileLocalPreferences - LOADING LOCAL PROPERTIES FROM /Users/ashishu/Documents/Talentica Projects/Structured Web/test1/serenity.properties 
 [main] INFO net.thucydides.core.util.PropertiesFileLocalPreferences - LOADING LOCAL PROPERTIES FROM /Users/ashishu/Documents/Talentica Projects/Structured Web/test1/serenity.properties 
 [main] INFO net.thucydides.core.util.PropertiesFileLocalPreferences - LOADING LOCAL PROPERTIES FROM /Users/ashishu/Documents/Talentica Projects/Structured Web/test1/serenity.properties 
 [main] INFO net.thucydides.core.util.PropertiesFileLocalPreferences - serenity.test.root=features
 [main] INFO net.thucydides.core.util.PropertiesFileLocalPreferences - serenity.project.name=Structured Web-Automation Test Results
+[main] INFO net.thucydides.core.util.PropertiesFileLocalPreferences - serenity.issue.tracker.url=http://jira/browse/{0}
+[main] INFO net.thucydides.core.util.PropertiesFileLocalPreferences - serenity.report.show.manual.tests=false
 [main] INFO net.thucydides.core.webdriver.SystemPropertiesConfiguration - project.build.directory : null
 [main] INFO net.thucydides.core.webdriver.SystemPropertiesConfiguration - project.reporting.OutputDirectory : null
 [main] INFO net.thucydides.core.webdriver.SystemPropertiesConfiguration - OutputDirectory : /Users/ashishu/Documents/Talentica Projects/Structured Web/test1/target/site/serenity
@@ -84,7 +86,7 @@
 |_______/    |_______|| _| `._____||_______||__| \__| |__|     |__|         |__|    
 -------------------------------------------------------------------------------------
 
-[main] INFO net.serenitybdd.core.Serenity - PREPARING TO EXECUTE 3 TESTS
+[main] INFO net.serenitybdd.core.Serenity - PREPARING TO EXECUTE 4 TESTS
 [main] INFO net.serenitybdd.core.Serenity - Test Suite Started: Email download as html and oft
 [main] INFO net.serenitybdd.core.Serenity - 
  _____ _____ ____ _____   ____ _____  _    ____ _____ _____ ____  
@@ -97,21 +99,11 @@
 TEST STARTED: shouldBeAbleToDownloadHtmlAndOftFileFromMarketingCenter
 -------------------------------------------------------------------
 [main] INFO net.serenitybdd.core.Serenity - TEST NUMBER: 1
-[main] INFO net.serenitybdd.core.Serenity - TEST PENDING
-[main] INFO net.thucydides.core.webdriver.SystemPropertiesConfiguration - project.build.directory : null
-[main] INFO net.thucydides.core.webdriver.SystemPropertiesConfiguration - project.reporting.OutputDirectory : null
-[main] INFO net.thucydides.core.webdriver.SystemPropertiesConfiguration - OutputDirectory : /Users/ashishu/Documents/Talentica Projects/Structured Web/test1/target/site/serenity
-[main] INFO net.serenitybdd.core.Serenity - 
-          __  _____ _____ ____ _____   ____  _____ _   _ ____ ___ _   _  ____ 
- _       / / |_   _| ____/ ___|_   _| |  _ \| ____| \ | |  _ \_ _| \ | |/ ___|
-(_)____ / /    | | |  _| \___ \ | |   | |_) |  _| |  \| | | | | ||  \| | |  _ 
- |_____/ /     | | | |___ ___) || |   |  __/| |___| |\  | |_| | || |\  | |_| |
-(_)   /_/      |_| |_____|____/ |_|   |_|   |_____|_| \_|____/___|_| \_|\____|
-                                                                                
-
-TEST PENDING: Should be able to download html and oft file from marketing center
----------------------------------------------------------------------------------
+[main] INFO net.serenitybdd.core.Serenity - TEST IGNORED
 [main] INFO net.serenitybdd.core.Serenity - TEST IGNORED
 ]]></system-err>
+  </testcase>
+  <testcase name="features.EmailDownload.EmailDownloadAsHtmlAndOft" classname="features.EmailDownload.EmailDownloadAsHtmlAndOft" time="0">
+    <skipped/>
   </testcase>
 </testsuite>

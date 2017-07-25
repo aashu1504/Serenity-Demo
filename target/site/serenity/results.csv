@@ -1,4 +1,5 @@
 "Story","Title","Result","Date","Stability","Duration (s)"
-"Email template download as html and oft","Should be able to download html and oft file from content manager","SUCCESS","2017-07-18T12:03:58.862+05:30","0.0","73.76"
-"Email download as html and oft","Should be able to download html and oft file from marketing center","PENDING","2017-07-18T12:03:57.442+05:30","0.0","0.07"
-"Nurturing campaign download as html and oft","Should be able to download html and oft file from program manager","PENDING","2017-07-18T12:05:12.873+05:30","0.0","0.0"
+"Download as pdf","Should be able to download as PDF from content manager","IGNORED","2017-07-25T17:07:04.483+05:30","0.0","0.0"
+"Email template download as html and oft","Should be able to download html and oft file from content manager","ERROR","2017-07-25T17:07:04.572+05:30","0.0","14.97"
+"Email download as html and oft","Should be able to download html and oft file from marketing center","IGNORED","2017-07-25T17:07:03.296+05:30","0.0","0.0"
+"Nurturing campaign download as html and oft","Should be able to download html and oft file from program manager","PENDING","2017-07-25T17:07:19.732+05:30","0.0","0.0"

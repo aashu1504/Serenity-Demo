@@ -27,13 +27,20 @@ public class UserStepsForEmailDownload {
 		genericFunctions.maximizeBrowserWindow();
 	}
 
-	@Step
-	public void entersSiteID(String siteID) {
+	// Storing data between steps
+	@Step("SITE Id entered is {0} is for a {1} vendor")
+	public void entersSiteID(String siteID, String vendor) {
 		customerServicePage.entersSiteID(siteID);
 	}
 
 	@Step
 	public void clicksOnLogin() {
+		//----------------------------------------------------------//
+		// This is to call a step in a step, So here session comes into picture. 
+		// Here : http://thucydides.info/docs/serenity-staging/#_storing_data_between_steps
+		//Store value in the called step at the beginning in a variable and use it later while calling.
+		//entersSiteID(null, null);
+		//----------------------------------------------------------//
 		customerServicePage.clickLogin();
 		genericFunctions.switchToSecondWindow();
 	}
