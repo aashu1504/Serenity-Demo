@@ -2,10 +2,14 @@ package steps;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.io.File;
+
+import org.junit.Assert;
 import net.thucydides.core.annotations.Step;
 import ui.AdminLoginPage;
 import ui.CurrentPage;
 import ui.CustomerServicePage;
+import ui.EmailPage;
 import ui.EmailTemplatePage;
 import ui.NavigationBar;
 import ui.StructuredWebHomePage;
@@ -20,6 +24,7 @@ public class UserStepsForEmailDownload {
 	GenericClass genericFunctions;
 	NavigationBar navigationBar;
 	EmailTemplatePage emailTemplatePage;
+	EmailPage emailPage;
 
 	@Step
 	public void isOnStructuredWebHomePage() {
@@ -93,5 +98,38 @@ public class UserStepsForEmailDownload {
 	@Step
 	public void clickTacticsTab() {
 		navigationBar.clickTacticsTab();
+	}
+	
+	@Step
+	public void clickNewlyCreatedEmailTemplate(String templateEmailName) {
+		emailPage.clickNewlyCreatedTemplate(templateEmailName);		
+	}
+
+	@Step
+	public void enterTemplateSubjectLine(String subjectLine) {
+		emailPage.enterTemplateSubject(subjectLine);	
+	}
+
+	@Step
+	public void clickOnSaveAndRefreshPreview() {
+		emailPage.saveAndRefreshClick();
+	}
+
+	@Step
+	public void clickDownloadHTML() {
+		emailPage.clickDownloadHTMLButton();
+	}
+	
+	@Step
+	public void clickDownloadOFT() {
+		emailPage.clickDownloadOFTButton();
+	}
+
+	@Step
+	public void shouldBeAbleToDownloadAsHtmlWithFileName(String expectedFileName) {
+		 String downloadPath ="/Users/ashishu/Downloads";
+		 File getLatestDownloadedFile = genericFunctions.getLatestFilefromDir(downloadPath);
+		 String actualFileName = getLatestDownloadedFile.getName();
+		 Assert.assertTrue(actualFileName.contains(expectedFileName));
 	}
 }

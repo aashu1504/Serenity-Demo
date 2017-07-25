@@ -19,4 +19,5 @@ testpackage/test.class
 ui/CustomerServicePage.class
 features/EmailTemplateDownload/DownloadAsPdf.class
 testpackage/CompareFiles.class
+ui/EmailPage.class
 ui/AdminLoginPage.class

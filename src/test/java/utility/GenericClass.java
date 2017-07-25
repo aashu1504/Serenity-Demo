@@ -1,5 +1,6 @@
 package utility;
 
+import java.io.File;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -25,5 +26,22 @@ public class GenericClass extends PageObject{
 	public void maximizeBrowserWindow() {
 		getDriver().manage().window().maximize();		
 	}
+
+	/* Get the latest file from a specific directory*/
+	public File getLatestFilefromDir(String downloadPath) {
+		 File dir = new File(downloadPath);
+		    File[] files = dir.listFiles();
+		    if (files == null || files.length == 0) {
+		        return null;
+		    }
+		
+		    File lastModifiedFile = files[0];
+		    for (int i = 1; i < files.length; i++) {
+		       if (lastModifiedFile.lastModified() < files[i].lastModified()) {
+		           lastModifiedFile = files[i];
+		       }
+		    }
+		    return lastModifiedFile;	}
+	
 
 }

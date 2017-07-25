@@ -22,6 +22,8 @@ public class EmailTemplatePage extends PageObject{
 	@FindBy(xpath = ".//input[@name='TemplateName']")
     WebElement emailTemplateName;
 	
+	//.//*[@id='SearchResultsDiv']/table/tbody/tr[@valign="top"]/td[2]/span/a
+	
 	public void clickNewEmailTemplate() {
 		clickNewEmailTemplate.click();
 	}

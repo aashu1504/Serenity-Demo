@@ -1,6 +1,5 @@
 package features.EmailTemplateDownload;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
@@ -50,6 +49,7 @@ public class EmailTemplateDownloadAsHtmlAndOft {
 	@Issue("SW-6386")
 	public void shouldBeAbleToDownloadHtmlAndOftFileFromContentManager()
 	{
+		String templateEmailName ="Email Template To Test";
 		//Given
 		structuredWebUser.isOnStructuredWebHomePage();
 		
@@ -58,18 +58,24 @@ public class EmailTemplateDownloadAsHtmlAndOft {
 		structuredWebUser.entersSiteID("48482", "Amazon Web Services");
 		structuredWebUser.clicksOnLogin();
 		structuredWebUser.selectTheRoleAs("Content Manager");
-		structuredWebUser.clickOnTemplatesTab();
-		structuredWebUser.clickEmailSubTab();
-		structuredWebUser.clickNewEmailTemplate();
-		structuredWebUser.enterEmailTemplateName("Email Template To Test");
-		structuredWebUser.enterEmailTemplateDescription("This is a template email to test");
-		structuredWebUser.clickSaveEmailTemplate();
-		structuredWebUser.enterEmailTemplateContent("This is the content to be written in editor");
-		structuredWebUser.clickSaveEmailTemplate();
-		structuredWebUser.clickTacticsTab();
-		structuredWebUser.clickEmailSubTab();
+//		structuredWebUser.clickOnTemplatesTab();
+//		structuredWebUser.clickEmailSubTab();
+//		structuredWebUser.clickNewEmailTemplate();
+//		structuredWebUser.enterEmailTemplateName(templateEmailName);
+//		structuredWebUser.enterEmailTemplateDescription("This is a template email to test");
+//		structuredWebUser.clickSaveEmailTemplate();
+//		structuredWebUser.enterEmailTemplateContent("This is the content to be written in editor");
+//		structuredWebUser.clickSaveEmailTemplate();
+		//structuredWebUser.clickTacticsTab();
+		//structuredWebUser.clickEmailSubTab();
+		structuredWebUser.clickNewlyCreatedEmailTemplate(templateEmailName);
+		structuredWebUser.enterTemplateSubjectLine("This is a subject line for Email Template");
+		structuredWebUser.clickOnSaveAndRefreshPreview();
+		structuredWebUser.clickDownloadHTML();
+		//structuredWebUser.clickDownloadOFT();
 		
 		//Then
-		//structuredWebUser.shouldSeePageTitleContaining("StructuredWeb QA");
+		String FileName = templateEmailName.replace(" ", "_");
+		structuredWebUser.shouldBeAbleToDownloadAsHtmlWithFileName(FileName);
 	}
 }

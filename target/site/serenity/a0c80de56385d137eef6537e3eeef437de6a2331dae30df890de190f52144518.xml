@@ -1,4 +1,4 @@
-<acceptance-test-run title="Should be able to download html and oft file from content manager" name="shouldBeAbleToDownloadHtmlAndOftFileFromContentManager" steps="5" successful="4" failures="0" skipped="0" ignored="0" pending="1" annotated-result="ERROR" result="ERROR" duration="14965" timestamp="2017-07-25T17:07:04.572+05:30" session-id="f48a0abb440b8534292dd83f9f6b032c">
+<acceptance-test-run title="Should be able to download html and oft file from content manager" name="shouldBeAbleToDownloadHtmlAndOftFileFromContentManager" steps="9" successful="9" failures="0" skipped="0" ignored="0" pending="0" result="SUCCESS" duration="34819" timestamp="2017-07-26T03:14:14.058+05:30" session-id="885b20832b0ad8af691319b42b096553">
   <user-story id="features.EmailTemplateDownload.EmailTemplateDownloadAsHtmlAndOft" name="Email template download as html and oft" path="features.EmailTemplateDownload"/>
   <issues>
     <issue>SW-6386</issue>
@@ -7,31 +7,59 @@
     <tag name="Email template download" type="feature"/>
     <tag name="Email template download/Email template download as html and oft" type="story"/>
   </tags>
-  <test-step result="SUCCESS" duration="7379">
+  <test-step result="SUCCESS" duration="6844">
     <screenshots>
-      <screenshot image="8fb767fc1ba5b244b2818f77840d7d11.png"/>
+      <screenshot image="f7179c99df5a8220a700ab7105575da0.png"/>
     </screenshots>
     <description>Is on structured web home page</description>
   </test-step>
-  <test-step result="SUCCESS" duration="2326">
+  <test-step result="SUCCESS" duration="2464">
     <screenshots>
       <screenshot image="557ea2e4ef20b7e5c43d66f263f74efc.png"/>
     </screenshots>
     <description>SITE Id entered is 48482 is for a Amazon Web Services vendor</description>
   </test-step>
-  <test-step result="SUCCESS" duration="1293">
+  <test-step result="SUCCESS" duration="1617">
     <screenshots>
       <screenshot image="5af29fc099f6465f9d4be6df739113c5.png"/>
     </screenshots>
     <description>Clicks on login</description>
   </test-step>
-  <test-step result="SUCCESS" duration="1889">
+  <test-step result="SUCCESS" duration="11228">
     <screenshots>
-      <screenshot image="5af29fc099f6465f9d4be6df739113c5.png"/>
+      <screenshot image="8b8720b8b314c7bd41f7f4515723ecf6.png"/>
     </screenshots>
     <description>Select the role as: &lt;span class=&apos;step-parameter&apos;&gt;Content Manager&lt;/span&gt;</description>
   </test-step>
-  <test-step result="PENDING" duration="0">
-    <description>Click on templates tab</description>
+  <test-step result="SUCCESS" duration="3313">
+    <screenshots>
+      <screenshot image="dacd40a4a5e345e6abe07bed2de2b4f9.png"/>
+    </screenshots>
+    <description>Click newly created email template: &lt;span class=&apos;step-parameter&apos;&gt;Email Template To Test&lt;/span&gt;</description>
+  </test-step>
+  <test-step result="SUCCESS" duration="881">
+    <screenshots>
+      <screenshot image="b34a5083b18d388a96cbee220ed6f127.png"/>
+    </screenshots>
+    <description>Enter template subject line: &lt;span class=&apos;step-parameter&apos;&gt;This is a subject line for Email Template&lt;/span&gt;</description>
+  </test-step>
+  <test-step result="SUCCESS" duration="5256">
+    <screenshots>
+      <screenshot image="123a1510829e1331c7e2285f0eb370e7.png"/>
+      <screenshot image="dacd40a4a5e345e6abe07bed2de2b4f9.png"/>
+    </screenshots>
+    <description>Click on save and refresh preview</description>
+  </test-step>
+  <test-step result="SUCCESS" duration="2596">
+    <screenshots>
+      <screenshot image="90e8c2aaf71f72c1ccac400da458b4aa.png"/>
+    </screenshots>
+    <description>Click download HTML</description>
+  </test-step>
+  <test-step result="SUCCESS" duration="588">
+    <screenshots>
+      <screenshot image="b4f3cb2ee18a2b56c176c90bbf8302c7.png"/>
+    </screenshots>
+    <description>Should be able to download as html with file name: &lt;span class=&apos;step-parameter&apos;&gt;Email_Template_To_Test&lt;/span&gt;</description>
   </test-step>
 </acceptance-test-run>
