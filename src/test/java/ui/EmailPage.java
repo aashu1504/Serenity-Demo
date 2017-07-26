@@ -38,6 +38,7 @@ public class EmailPage extends PageObject{
 	}
 
 	public void enterTemplateSubject(String subject) {
+		subjectLine.clear();
 		subjectLine.sendKeys(subject);
 	}
 	

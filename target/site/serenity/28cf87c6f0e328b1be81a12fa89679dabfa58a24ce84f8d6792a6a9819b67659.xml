@@ -1,0 +1,10 @@
+<acceptance-test-run title="Should be able to download email template as html from content manager" name="shouldBeAbleToDownloadEmailTemplateAsHtmlFromContentManager" steps="0" successful="0" failures="0" skipped="0" ignored="0" pending="0" annotated-result="IGNORED" result="IGNORED" duration="0" timestamp="2017-07-26T17:05:37.866+05:30" session-id="2fada02ea3974ed7e23db83ff430045f">
+  <user-story id="features.EmailTemplateDownload.EmailTemplateDownloadByContentManagerScope" name="Email template download by content manager scope" path="features.EmailTemplateDownload"/>
+  <issues>
+    <issue>SW-6386</issue>
+  </issues>
+  <tags>
+    <tag name="Email template download" type="feature"/>
+    <tag name="Email template download/Email template download by content manager scope" type="story"/>
+  </tags>
+</acceptance-test-run>

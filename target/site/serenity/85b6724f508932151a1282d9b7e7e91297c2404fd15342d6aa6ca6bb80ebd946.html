@@ -34,11 +34,11 @@
     <script class="code" type="text/javascript">$(document).ready(function () {
         var plot1 = $.jqplot('coverage_pie_chart', [
             [
-                ['Passing', 0.5],
+                ['Passing', 0.333333],
                 ['Pending', 0],
-                ['Ignored', 0.5],
+                ['Ignored', 0.333333],
                 ['Failing', 0],
-                ['Errors',  0],
+                ['Errors',  0.333333],
                 ['Compromised Tests',  0],
             ]
         ], {
@@ -68,10 +68,10 @@
                 marginTop: '15px'
             },
             series: [
-                {label: '50% requirements tested successfully'},
-                {label: '50% requirements untested'},
+                {label: '33.3% requirements tested successfully'},
+                {label: '33.3% requirements untested'},
                 {label: '0%} requirements failing'},
-                {label: '0%} requirements with errors'},
+                {label: '33.3%} requirements with errors'},
                 {label: '0%} requirements with compromised tests'}
             ]
         });
@@ -167,7 +167,7 @@
             <a href="2a4631d87648e59c428d4cf0e9247f9d286e4679f436ca2ce872e931eb4dfd58.html"><i class="fa fa-comments-o"></i> Stories</a>
         </li>
     </ul>
-    <span class="date-and-time"><a href="build-info.html"><i class="fa fa-info-circle"></i></a> Report generated 26-07-2017 03:14</span>
+    <span class="date-and-time"><a href="build-info.html"><i class="fa fa-info-circle"></i></a> Report generated 26-07-2017 17:05</span>
     <br style="clear:left"/>
 </div>
 
@@ -206,16 +206,16 @@
                                         <td class="summary-leading-column">Stories</td>
                                         <td>2</td>
                                         <td>1</td>
-                                        <td>0</td>
-                                        <td>0</td>
                                         <td>1</td>
+                                        <td>0</td>
+                                        <td>0</td>
                                         <td>0</td>
                                     </tr>
                                 <tr>
                                     <td class="summary-leading-column">Acceptance Criteria (tests)</td>
-                                    <td>2</td>
+                                    <td>3</td>
                                     <td>1</td>
-                                    <td>0</td>
+                                    <td>1</td>
                                     <td>0</td>
                                     <td>1</td>
                                     <td></td>
@@ -244,11 +244,11 @@
         <body>
         <tr>
             <td class="summary-leading-column">Automated</td>
-            <td>2</td>
-            <td>1 (50%)</td>
+            <td>3</td>
+            <td>1 (33%)</td>
+            <td>1 (33%)</td>
             <td>0 (0%)</td>
-            <td>0 (0%)</td>
-            <td>1 (50%)</td>
+            <td>1 (33%)</td>
         </tr>
         <tr>
             <td class="summary-leading-column">Manual</td>
@@ -260,15 +260,15 @@
         </tr>
         <tr>
             <td class="summary-leading-column">Total</td>
-            <td>2</td>
-            <td>1 (50%)</td>
+            <td>3</td>
+            <td>1 (33%)</td>
+            <td>1 (0%)</td>
             <td>0 (0%)</td>
-            <td>0 (0%)</td>
-            <td>1 (50%)</td>
+            <td>1 (33%)</td>
         </tr>
         <tr>
             <td class="summary-leading-column">Total Duration</td>
-                <td colspan="5">35 seconds</td>
+                <td colspan="5">4 seconds</td>
         </tr>
         </body>
     </table>
@@ -315,29 +315,29 @@
             <tbody>
 
 
-                <tr class="test-IGNORED requirementRow">
+                <tr class="test-ERROR requirementRow">
                     <td class="requirementRowCell">
-                        <span class="status_icon"><i class='fa fa-ban ignored-icon ' title='IGNORED'></i></span>
-                        <span style="display:none">2</span>
+                        <span class="status_icon"><i class='fa fa-exclamation-triangle error-icon ' title='ERROR'></i></span>
+                        <span style="display:none">4</span>
                     </td>
                     <td class="cardNumber requirementRowCell"></td>
 
-                    <td class="IGNORED-text requirementRowCell">
+                    <td class="ERROR-text requirementRowCell">
                     <a href="javaScript:void(0)" class="read-more-link">
                     <img src="images/plus.png" height="16"/></a>
                         <span class="requirementName"><a
-                                href="921542466701bdf39de0efea38023d5390d71e45f1aadbc2401f61448167a146.html">Download as pdf</a></span>
+                                href="14e7b7b755144a5ce20b960d2b88546d739d241b9448f93f94c9764d0b885f27.html">Email template download by content manager scope</a></span>
 
-                        <div class="requirementNarrative read-more-text"></div>
+                        <div class="requirementNarrative read-more-text">In order to send a Template Email with pre filled content<br>As a Content Manager<br>I want to download my Email Templates in OFT and HTML Format</div>
                     </td>
 
 
 
-                    <td class="greentext highlighted-value requirementRowCell">1</td>
+                    <td class="greentext highlighted-value requirementRowCell">2</td>
                     <td class="greentext requirementRowCell">0</td>
                     <td class="bluetext requirementRowCell">1</td>
                     <td class="redtext requirementRowCell">0</td>
-                    <td class="lightorangetext requirementRowCell">0</td>
+                    <td class="lightorangetext requirementRowCell">1</td>
                     <td class="violettext requirementRowCell">0</td>
 
                     <td width="125px" class="lightgreentext requirementRowCell">
@@ -349,16 +349,16 @@
                                 </td>
                                 <td width="125px">
                                     <div class="percentagebar"
-                                         title="Download as pdf
-Tests implemented: 1
+                                         title="Email template download by content manager scope
+Tests implemented: 2
   - Passing tests: 0 (0% of specified requirements)
   - Failing tests: 0 (0% of specified requirements)
-  - Tests with errors: 0 (0% of specified requirements)
+  - Tests with errors: 1 (50% of specified requirements)
   - Compromised tests 0 (0% of specified requirements)
 
 Tests not implemented or not executed: 1
   - Pending tests: 0 (0% of specified requirements)
-  - Ignored or skipped tests: 1 (100% of specified requirements)
+  - Ignored or skipped tests: 1 (50% of specified requirements)
 
 Requirements specified:     1
 Requirements with no tests: 0
@@ -366,20 +366,20 @@ Requirements with no tests: 0
 
 Estimated unimplemented tests: 0
 Estimated unimplemented or pending requirements: 0%
-Estimated ignored or skipped requirements: 100%"
+Estimated ignored or skipped requirements: 50%"
                                          style="width: 125px;">
                                         <div class="ignoredbar"
                                              style="width: 125px;"
-                                             title="Download as pdf
-Tests implemented: 1
+                                             title="Email template download by content manager scope
+Tests implemented: 2
   - Passing tests: 0 (0% of specified requirements)
   - Failing tests: 0 (0% of specified requirements)
-  - Tests with errors: 0 (0% of specified requirements)
+  - Tests with errors: 1 (50% of specified requirements)
   - Compromised tests 0 (0% of specified requirements)
 
 Tests not implemented or not executed: 1
   - Pending tests: 0 (0% of specified requirements)
-  - Ignored or skipped tests: 1 (100% of specified requirements)
+  - Ignored or skipped tests: 1 (50% of specified requirements)
 
 Requirements specified:     1
 Requirements with no tests: 0
@@ -387,19 +387,19 @@ Requirements with no tests: 0
 
 Estimated unimplemented tests: 0
 Estimated unimplemented or pending requirements: 0%
-Estimated ignored or skipped requirements: 100%">
+Estimated ignored or skipped requirements: 50%">
                                             <div class="compromisedbar"
-                                                 style="width: 0px;"
-                                                 title="Download as pdf
-Tests implemented: 1
+                                                 style="width: 62px;"
+                                                 title="Email template download by content manager scope
+Tests implemented: 2
   - Passing tests: 0 (0% of specified requirements)
   - Failing tests: 0 (0% of specified requirements)
-  - Tests with errors: 0 (0% of specified requirements)
+  - Tests with errors: 1 (50% of specified requirements)
   - Compromised tests 0 (0% of specified requirements)
 
 Tests not implemented or not executed: 1
   - Pending tests: 0 (0% of specified requirements)
-  - Ignored or skipped tests: 1 (100% of specified requirements)
+  - Ignored or skipped tests: 1 (50% of specified requirements)
 
 Requirements specified:     1
 Requirements with no tests: 0
@@ -407,19 +407,19 @@ Requirements with no tests: 0
 
 Estimated unimplemented tests: 0
 Estimated unimplemented or pending requirements: 0%
-Estimated ignored or skipped requirements: 100%">
+Estimated ignored or skipped requirements: 50%">
                                                 <div class="errorbar"
-                                                     style="width: 0px;"
-                                                     title="Download as pdf
-Tests implemented: 1
+                                                     style="width: 62px;"
+                                                     title="Email template download by content manager scope
+Tests implemented: 2
   - Passing tests: 0 (0% of specified requirements)
   - Failing tests: 0 (0% of specified requirements)
-  - Tests with errors: 0 (0% of specified requirements)
+  - Tests with errors: 1 (50% of specified requirements)
   - Compromised tests 0 (0% of specified requirements)
 
 Tests not implemented or not executed: 1
   - Pending tests: 0 (0% of specified requirements)
-  - Ignored or skipped tests: 1 (100% of specified requirements)
+  - Ignored or skipped tests: 1 (50% of specified requirements)
 
 Requirements specified:     1
 Requirements with no tests: 0
@@ -427,19 +427,19 @@ Requirements with no tests: 0
 
 Estimated unimplemented tests: 0
 Estimated unimplemented or pending requirements: 0%
-Estimated ignored or skipped requirements: 100%">
+Estimated ignored or skipped requirements: 50%">
                                                     <div class="failingbar"
                                                          style="width: 0px;"
-                                                         title="Download as pdf
-Tests implemented: 1
+                                                         title="Email template download by content manager scope
+Tests implemented: 2
   - Passing tests: 0 (0% of specified requirements)
   - Failing tests: 0 (0% of specified requirements)
-  - Tests with errors: 0 (0% of specified requirements)
+  - Tests with errors: 1 (50% of specified requirements)
   - Compromised tests 0 (0% of specified requirements)
 
 Tests not implemented or not executed: 1
   - Pending tests: 0 (0% of specified requirements)
-  - Ignored or skipped tests: 1 (100% of specified requirements)
+  - Ignored or skipped tests: 1 (50% of specified requirements)
 
 Requirements specified:     1
 Requirements with no tests: 0
@@ -447,19 +447,19 @@ Requirements with no tests: 0
 
 Estimated unimplemented tests: 0
 Estimated unimplemented or pending requirements: 0%
-Estimated ignored or skipped requirements: 100%">
+Estimated ignored or skipped requirements: 50%">
                                                         <div class="passingbar"
                                                              style="width: 0px;"
-                                                             title="Download as pdf
-Tests implemented: 1
+                                                             title="Email template download by content manager scope
+Tests implemented: 2
   - Passing tests: 0 (0% of specified requirements)
   - Failing tests: 0 (0% of specified requirements)
-  - Tests with errors: 0 (0% of specified requirements)
+  - Tests with errors: 1 (50% of specified requirements)
   - Compromised tests 0 (0% of specified requirements)
 
 Tests not implemented or not executed: 1
   - Pending tests: 0 (0% of specified requirements)
-  - Ignored or skipped tests: 1 (100% of specified requirements)
+  - Ignored or skipped tests: 1 (50% of specified requirements)
 
 Requirements specified:     1
 Requirements with no tests: 0
@@ -467,7 +467,7 @@ Requirements with no tests: 0
 
 Estimated unimplemented tests: 0
 Estimated unimplemented or pending requirements: 0%
-Estimated ignored or skipped requirements: 100%">
+Estimated ignored or skipped requirements: 50%">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -492,9 +492,9 @@ Estimated ignored or skipped requirements: 100%">
                     <a href="javaScript:void(0)" class="read-more-link">
                     <img src="images/plus.png" height="16"/></a>
                         <span class="requirementName"><a
-                                href="edf03f2dc6d46685c1a873382c6eff64da96857b0eec0fb9d9d23e0cfaf38ade.html">Email template download as html and oft</a></span>
+                                href="c8d06e7ed93a09b74d9408343dca60432c6900bdee4e92ebf4155d980edda70b.html">Email template download by program manager scope</a></span>
 
-                        <div class="requirementNarrative read-more-text">In order to send a Template Email with pre filled content<br>As a Vendor<br>I want to download my Email Templates in OFT and HTML Format</div>
+                        <div class="requirementNarrative read-more-text">In order to send a Template Email with pre filled content<br>As a Program Manager<br>I want to download my Email Templates in OFT and HTML Format</div>
                     </td>
 
 
@@ -515,7 +515,7 @@ Estimated ignored or skipped requirements: 100%">
                                 </td>
                                 <td width="125px">
                                     <div class="percentagebar"
-                                         title="Email template download as html and oft
+                                         title="Email template download by program manager scope
 Tests implemented: 1
   - Passing tests: 1 (100% of specified requirements)
   - Failing tests: 0 (0% of specified requirements)
@@ -536,7 +536,7 @@ Estimated ignored or skipped requirements: 0%"
                                          style="width: 125px;">
                                         <div class="ignoredbar"
                                              style="width: 125px;"
-                                             title="Email template download as html and oft
+                                             title="Email template download by program manager scope
 Tests implemented: 1
   - Passing tests: 1 (100% of specified requirements)
   - Failing tests: 0 (0% of specified requirements)
@@ -556,7 +556,7 @@ Estimated unimplemented or pending requirements: 0%
 Estimated ignored or skipped requirements: 0%">
                                             <div class="compromisedbar"
                                                  style="width: 125px;"
-                                                 title="Email template download as html and oft
+                                                 title="Email template download by program manager scope
 Tests implemented: 1
   - Passing tests: 1 (100% of specified requirements)
   - Failing tests: 0 (0% of specified requirements)
@@ -576,7 +576,7 @@ Estimated unimplemented or pending requirements: 0%
 Estimated ignored or skipped requirements: 0%">
                                                 <div class="errorbar"
                                                      style="width: 125px;"
-                                                     title="Email template download as html and oft
+                                                     title="Email template download by program manager scope
 Tests implemented: 1
   - Passing tests: 1 (100% of specified requirements)
   - Failing tests: 0 (0% of specified requirements)
@@ -596,7 +596,7 @@ Estimated unimplemented or pending requirements: 0%
 Estimated ignored or skipped requirements: 0%">
                                                     <div class="failingbar"
                                                          style="width: 125px;"
-                                                         title="Email template download as html and oft
+                                                         title="Email template download by program manager scope
 Tests implemented: 1
   - Passing tests: 1 (100% of specified requirements)
   - Failing tests: 0 (0% of specified requirements)
@@ -616,7 +616,7 @@ Estimated unimplemented or pending requirements: 0%
 Estimated ignored or skipped requirements: 0%">
                                                         <div class="passingbar"
                                                              style="width: 125px;"
-                                                             title="Email template download as html and oft
+                                                             title="Email template download by program manager scope
 Tests implemented: 1
   - Passing tests: 1 (100% of specified requirements)
   - Failing tests: 0 (0% of specified requirements)
@@ -671,13 +671,13 @@ Estimated ignored or skipped requirements: 0%">
                         </thead>
                         <tbody>
 
-                            <tr class="test-IGNORED">
-                                <td><span class="summary-icon"><i class='fa fa-ban ignored-icon ' title='IGNORED'></i></span>
+                            <tr class="test-SUCCESS">
+                                <td><span class="summary-icon"><i class='fa fa-check-square-o success-icon ' title='SUCCESS'></i></span>
                                     
-                                    <span style="display:none">IGNORED</span></td>
-                                <td class="IGNORED-text">
-                                    <a href="a157fd4baa9f06518332630b13f695cf6a7658339da6c54827afd7944dc91f8d.html" class="ellipsis" title="">
-                                    Should be able to download as PDF from content manager 
+                                    <span style="display:none">SUCCESS</span></td>
+                                <td class="SUCCESS-text">
+                                    <a href="1eea832a67b22e5c738114d82b6f3280ae392c36907abd2f0f3f3d9c9e27ffaa.html" class="ellipsis" title="">
+                                    Should be able to download email template as html from content manager (<a target="_blank" href="http://jira/browse/SW-6386">SW-6386</a>)
                                     </a>
                                 </td>
 
@@ -687,20 +687,36 @@ Estimated ignored or skipped requirements: 0%">
                                 <td class="lightgreentext">0</td>
                             </tr>
 
-                            <tr class="test-SUCCESS">
-                                <td><span class="summary-icon"><i class='fa fa-check-square-o success-icon ' title='SUCCESS'></i></span>
+                            <tr class="test-IGNORED">
+                                <td><span class="summary-icon"><i class='fa fa-ban ignored-icon ' title='IGNORED'></i></span>
                                     
-                                    <span style="display:none">SUCCESS</span></td>
-                                <td class="SUCCESS-text">
-                                    <a href="a0c80de56385d137eef6537e3eeef437de6a2331dae30df890de190f52144518.html" class="ellipsis" title="">
-                                    Should be able to download html and oft file from content manager (<a target="_blank" href="http://jira/browse/SW-6386">SW-6386</a>)
+                                    <span style="display:none">IGNORED</span></td>
+                                <td class="IGNORED-text">
+                                    <a href="28cf87c6f0e328b1be81a12fa89679dabfa58a24ce84f8d6792a6a9819b67659.html" class="ellipsis" title="">
+                                    Should be able to download email template as html from content manager (<a target="_blank" href="http://jira/browse/SW-6386">SW-6386</a>)
                                     </a>
                                 </td>
 
-                                <td class="lightgreentext">9</td>
+                                <td class="lightgreentext">0</td>
 
 
-                                <td class="lightgreentext">34.82</td>
+                                <td class="lightgreentext">0</td>
+                            </tr>
+
+                            <tr class="test-ERROR">
+                                <td><span class="summary-icon"><i class='fa fa-exclamation-triangle error-icon ' title='ERROR'></i></span>
+                                    
+                                    <span style="display:none">ERROR</span></td>
+                                <td class="ERROR-text">
+                                    <a href="90db54b060362d90976f2b42fdfb10ba3a0bb65e38e5c535d134979efc27b2d5.html" class="ellipsis" title="no such window: target window already closed from unknown error: web view not found   (Session info: chrome=59.0.3071.115)   (Driver info: chromedriver=2.30.477690 (c53f4ad87510ee97b5c3425a14c0e79780cdf262),platform=Mac OS X 10.12.5 x86_64) (WARNING: The server did not provide any stacktrace information) Command duration or timeout: 4 milliseconds Build info: version: '3.4.0', revision: 'unknown', time: 'unknown' System info: host: 'ashishu-mac.local', ip: 'fe80:0:0:0:1893:370c:2104:de6e%en0', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.12.5', java.version: '1.8.0_131' Driver info: org.openqa.selenium.chrome.ChromeDriver Capabilities [{applicationCacheEnabled=false, rotatable=false, mobileEmulationEnabled=false, networkConnectionEnabled=false, chrome={chromedriverVersion=2.30.477690 (c53f4ad87510ee97b5c3425a14c0e79780cdf262), userDataDir=/var/folders/02/d1ztw_p91sjbv6f9n8vlv86809m7zb/T/.org.chromium.Chromium.mZ6s75}, takesHeapSnapshot=true, pageLoadStrategy=normal, databaseEnabled=false, handlesAlerts=true, hasTouchScreen=false, version=59.0.3071.115, platform=MAC, browserConnectionEnabled=false, nativeEvents=true, acceptSslCerts=true, locationContextEnabled=true, webStorageEnabled=true, browserName=chrome, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true, unexpectedAlertBehaviour=}] Session ID: 2fada02ea3974ed7e23db83ff430045f">
+                                    Should be able to download email template as oft from content manager (<a target="_blank" href="http://jira/browse/SW-6386">SW-6386</a>)
+                                    </a>
+                                </td>
+
+                                <td class="lightgreentext">1</td>
+
+
+                                <td class="lightgreentext">4</td>
                             </tr>
                         </tbody>
                     </table>

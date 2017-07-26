@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.io.File;
 
 import org.junit.Assert;
+
 import net.thucydides.core.annotations.Step;
 import ui.AdminLoginPage;
 import ui.CurrentPage;
@@ -126,10 +127,44 @@ public class UserStepsForEmailDownload {
 	}
 
 	@Step
-	public void shouldBeAbleToDownloadAsHtmlWithFileName(String expectedFileName) {
-		 String downloadPath ="/Users/ashishu/Downloads";
+	public void shouldBeAbleToDownloadAsHtmlWithFileName(String expectedHtmlFileName, String downloadPath) throws InterruptedException {
+		 Thread.sleep(10000L);
 		 File getLatestDownloadedFile = genericFunctions.getLatestFilefromDir(downloadPath);
 		 String actualFileName = getLatestDownloadedFile.getName();
-		 Assert.assertTrue(actualFileName.contains(expectedFileName));
+		 if(actualFileName.contains(expectedHtmlFileName) && actualFileName.contains(".htm"))
+		 {
+			 Assert.assertTrue(true);
+		 }
+		 else
+		 {
+			 Assert.assertTrue(false);
+		 }
+	}
+	
+	@Step
+	public void shouldBeAbleToDownloadAsOftWithFileName(String expectedOftFileName, String downloadPath) throws InterruptedException {
+		 Thread.sleep(5000L);
+		 File getLatestDownloadedFile = genericFunctions.getLatestFilefromDir(downloadPath);
+		 String actualFileName = getLatestDownloadedFile.getName();
+		 if(actualFileName.contains(expectedOftFileName) && actualFileName.contains(".oft"))
+		 {
+			 Assert.assertTrue(true);
+		 }
+		 else
+		 {
+			 Assert.assertTrue(false);
+		 }
+	}
+	
+	@Step
+	public void shouldBeAbleToDownloadAsHtmlWithFileNameAtPath(String expectedHtmlFileName, String downloadPath) {
+		boolean isHTMLFileDownloaded =  genericFunctions.isHTMLFileDownloaded(downloadPath, expectedHtmlFileName);
+			 Assert.assertTrue(isHTMLFileDownloaded);
+	}
+
+	@Step
+	public void shouldBeAbleToDownloadAsOftWithFileNameAtPath(String expectedOftFileName, String downloadPath) {
+		boolean isOFTFileDownloaded =  genericFunctions.isOFTFileDownloaded(downloadPath, expectedOftFileName);
+			 Assert.assertTrue(isOFTFileDownloaded);
 	}
 }

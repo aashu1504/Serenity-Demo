@@ -1,6 +1,9 @@
 package utility;
 
 import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -28,7 +31,7 @@ public class GenericClass extends PageObject{
 	}
 
 	/* Get the latest file from a specific directory*/
-	public File getLatestFilefromDir(String downloadPath) {
+	public File getLatestFilefromDir(String downloadPath){
 		 File dir = new File(downloadPath);
 		    File[] files = dir.listFiles();
 		    if (files == null || files.length == 0) {
@@ -42,6 +45,41 @@ public class GenericClass extends PageObject{
 		       }
 		    }
 		    return lastModifiedFile;	}
+
+	/* Get the list of files from a specific directory and compare with expected file name - We will not use this as downloaded file name is same for all downloads. Even match is done for old file, this will pass*/
+	public boolean isHTMLFileDownloaded(String downloadPath, String expectedFileName) {
+		boolean flag = false;
+	    File dir = new File(downloadPath);
+	    File[] dir_contents = dir.listFiles();
+	  	    
+	    for (int i = 0; i < dir_contents.length; i++) {
+	        if (dir_contents[i].getName().contains(expectedFileName) & dir_contents[i].getName().contains(".htm"))
+	            return flag=true;
+	            }
+
+	    return flag;
+	}
+	
+	public boolean isOFTFileDownloaded(String downloadPath, String expectedFileName) {
+		boolean flag = false;
+	    File dir = new File(downloadPath);
+	    File[] dir_contents = dir.listFiles();
+	  	    
+	    for (int i = 0; i < dir_contents.length; i++) {
+	        if (dir_contents[i].getName().contains(expectedFileName) & dir_contents[i].getName().contains(".oft"))
+	            return flag=true;
+	            }
+
+	    return flag;
+	}
+	
+	public String getCurrentDateTime()
+	{
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date date = new Date();
+		System.out.println(dateFormat.format(date)); //2016/11/16 12:08:43
+		return dateFormat.format(date);
+	}
 	
 
 }

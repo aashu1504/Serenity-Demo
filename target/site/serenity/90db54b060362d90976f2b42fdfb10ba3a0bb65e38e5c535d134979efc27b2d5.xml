@@ -1,0 +1,13 @@
+<acceptance-test-run title="Should be able to download email template as oft from content manager" name="shouldBeAbleToDownloadEmailTemplateAsOftFromContentManager" steps="1" successful="0" failures="0" skipped="0" ignored="0" pending="1" annotated-result="ERROR" result="ERROR" duration="3998" timestamp="2017-07-26T17:05:33.858+05:30">
+  <user-story id="features.EmailTemplateDownload.EmailTemplateDownloadByContentManagerScope" name="Email template download by content manager scope" path="features.EmailTemplateDownload"/>
+  <issues>
+    <issue>SW-6386</issue>
+  </issues>
+  <tags>
+    <tag name="Email template download" type="feature"/>
+    <tag name="Email template download/Email template download by content manager scope" type="story"/>
+  </tags>
+  <test-step result="PENDING" duration="0">
+    <description>Is on structured web home page</description>
+  </test-step>
+</acceptance-test-run>
