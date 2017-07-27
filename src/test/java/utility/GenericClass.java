@@ -20,10 +20,7 @@ public class GenericClass extends PageObject{
 	public static final String UTF8_BOM = "\uFEFF";
 	
 	public void switchToSecondWindow() {
-		
-		System.out.println("In Window Handle");
 		Set<String> windows = getDriver().getWindowHandles();
-		System.out.println("In Window Handle Line 1");
 		Iterator<String> window = windows.iterator();
 		firstWindow = window.next();
 		secondWindow = window.next();		
@@ -102,8 +99,11 @@ public class GenericClass extends PageObject{
 }
 
 
-	public String convertOftFileToHtmlAndGetItsPath(String getOFTFilePath) {
-		return null;
+	public String convertOftFileToHtmlAndGetItsPath(String getOFTFilePath) throws IOException {
+		String oftFilePath = getOFTFilePath;
+		String OftToHtmConvertedFilePath = "C:\\Users\\ashishu\\Downloads\\AshishTestFile.htm";
+		Runtime.getRuntime().exec(new String[]{"cmd.exe", "/c", "start OftToHtmlConverter.bat", oftFilePath, OftToHtmConvertedFilePath});
+	    return OftToHtmConvertedFilePath;
 	}
 	
 	public boolean compareOftFileWithHtmlFile(String getHTMLFilePath, String getOftToHtmlGeneratedFilePath) throws IOException {
