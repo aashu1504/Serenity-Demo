@@ -142,11 +142,11 @@ public class UserStepsForEmailDownload {
 
 	// Verify if content in the downloaded HTML and OFT File is Same
 	@Step
-	public void contentInDownloadedFilesShouldBeSame(String expectedFileName, String downloadPath) throws IOException {
-		String getHTMLFilePath = genericFunctions.getFilePath(expectedFileName,downloadPath,".htm");
-		String getOFTFilePath = genericFunctions.getFilePath(expectedFileName,downloadPath,".oft");
-		String getOftToHtmlGeneratedFilePath = genericFunctions.convertOftFileToHtmlAndGetItsPath(getOFTFilePath);
-		boolean isFileContentSame = genericFunctions.compareOftFileWithHtmlFile(getHTMLFilePath,getOftToHtmlGeneratedFilePath);
+	public void shouldBeAbleToSeeSameContentInBothHtmlAndOft(String expectedFileName, String downloadPath) throws IOException {
+		String getFullHTMLFilePath = genericFunctions.getFilePath(expectedFileName,downloadPath,".htm");
+		String getFullOFTFilePath = genericFunctions.getFilePath(expectedFileName,downloadPath,".oft");
+		String getOftToHtmlGeneratedFilePath = genericFunctions.convertOftFileToHtmlAndGetItsPath(getFullOFTFilePath);
+		boolean isFileContentSame = genericFunctions.compareOftFileWithHtmlFile(getFullHTMLFilePath,getOftToHtmlGeneratedFilePath);
 		Assert.assertTrue(isFileContentSame);
 	}
 }
