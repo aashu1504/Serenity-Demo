@@ -1,7 +1,0 @@
-<acceptance-test-run title="Should be able to download html and oft file from program manager" name="shouldBeAbleToDownloadHtmlAndOftFileFromProgramManager" steps="0" successful="0" failures="0" skipped="0" ignored="0" pending="0" annotated-result="PENDING" result="PENDING" duration="0" timestamp="2017-07-26T17:05:38.062+05:30">
-  <user-story id="features.NurturingCampaignDownload.NurturingCampaignDownloadAsHtmlAndOft" name="Nurturing campaign download as html and oft" path="features.NurturingCampaignDownload"/>
-  <tags>
-    <tag name="Nurturing campaign download" type="feature"/>
-    <tag name="Nurturing campaign download/Nurturing campaign download as html and oft" type="story"/>
-  </tags>
-</acceptance-test-run>

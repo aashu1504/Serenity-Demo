@@ -2,7 +2,7 @@ package steps;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.io.File;
+import java.io.IOException;
 
 import org.junit.Assert;
 
@@ -125,46 +125,28 @@ public class UserStepsForEmailDownload {
 	public void clickDownloadOFT() {
 		emailPage.clickDownloadOFTButton();
 	}
-
-	@Step
-	public void shouldBeAbleToDownloadAsHtmlWithFileName(String expectedHtmlFileName, String downloadPath) throws InterruptedException {
-		 Thread.sleep(10000L);
-		 File getLatestDownloadedFile = genericFunctions.getLatestFilefromDir(downloadPath);
-		 String actualFileName = getLatestDownloadedFile.getName();
-		 if(actualFileName.contains(expectedHtmlFileName) && actualFileName.contains(".htm"))
-		 {
-			 Assert.assertTrue(true);
-		 }
-		 else
-		 {
-			 Assert.assertTrue(false);
-		 }
-	}
 	
-	@Step
-	public void shouldBeAbleToDownloadAsOftWithFileName(String expectedOftFileName, String downloadPath) throws InterruptedException {
-		 Thread.sleep(5000L);
-		 File getLatestDownloadedFile = genericFunctions.getLatestFilefromDir(downloadPath);
-		 String actualFileName = getLatestDownloadedFile.getName();
-		 if(actualFileName.contains(expectedOftFileName) && actualFileName.contains(".oft"))
-		 {
-			 Assert.assertTrue(true);
-		 }
-		 else
-		 {
-			 Assert.assertTrue(false);
-		 }
-	}
-	
+	// Check if HTMl File is Downloaded in the Downloads Folder
 	@Step
 	public void shouldBeAbleToDownloadAsHtmlWithFileNameAtPath(String expectedHtmlFileName, String downloadPath) {
 		boolean isHTMLFileDownloaded =  genericFunctions.isHTMLFileDownloaded(downloadPath, expectedHtmlFileName);
 			 Assert.assertTrue(isHTMLFileDownloaded);
 	}
 
+	// Check if OFT File is Downloaded in the Downloads Folder
 	@Step
 	public void shouldBeAbleToDownloadAsOftWithFileNameAtPath(String expectedOftFileName, String downloadPath) {
 		boolean isOFTFileDownloaded =  genericFunctions.isOFTFileDownloaded(downloadPath, expectedOftFileName);
 			 Assert.assertTrue(isOFTFileDownloaded);
+	}
+
+	// Verify if content in the downloaded HTML and OFT File is Same
+	@Step
+	public void contentInDownloadedFilesShouldBeSame(String expectedFileName, String downloadPath) throws IOException {
+		String getHTMLFilePath = genericFunctions.getFilePath(expectedFileName,downloadPath,".htm");
+		String getOFTFilePath = genericFunctions.getFilePath(expectedFileName,downloadPath,".oft");
+		String getOftToHtmlGeneratedFilePath = genericFunctions.convertOftFileToHtmlAndGetItsPath(getOFTFilePath);
+		boolean isFileContentSame = genericFunctions.compareOftFileWithHtmlFile(getHTMLFilePath,getOftToHtmlGeneratedFilePath);
+		Assert.assertTrue(isFileContentSame);
 	}
 }

@@ -1,6 +1,10 @@
 package utility;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,6 +17,7 @@ public class GenericClass extends PageObject{
 	
 	String firstWindow = null;
 	String secondWindow = null;
+	public static final String UTF8_BOM = "\uFEFF";
 	
 	public void switchToSecondWindow() {
 		
@@ -24,7 +29,6 @@ public class GenericClass extends PageObject{
 		secondWindow = window.next();		
 		getDriver().switchTo().window(secondWindow);		
 	}
-
 	
 	public void maximizeBrowserWindow() {
 		getDriver().manage().window().maximize();		
@@ -80,6 +84,55 @@ public class GenericClass extends PageObject{
 		System.out.println(dateFormat.format(date)); //2016/11/16 12:08:43
 		return dateFormat.format(date);
 	}
-	
 
+
+	public String getFilePath(String expectedFileName, String downloadPath, String downloadedFileType) {
+		String pathOfDownloadedFile = null;
+	    File dir = new File(downloadPath);
+	    File[] dir_contents = dir.listFiles();
+	  	    
+	    for (int i = 0; i < dir_contents.length; i++) 
+	    {
+	        if (dir_contents[i].getName().contains(expectedFileName) & dir_contents[i].getName().contains(downloadedFileType))
+	        {
+	        	pathOfDownloadedFile = dir_contents[i].getPath();
+	        }
+	    }
+		return pathOfDownloadedFile;
+}
+
+
+	public String convertOftFileToHtmlAndGetItsPath(String getOFTFilePath) {
+		return null;
+	}
+	
+	public boolean compareOftFileWithHtmlFile(String getHTMLFilePath, String getOftToHtmlGeneratedFilePath) throws IOException {
+		 	File file1 = new File(getHTMLFilePath);
+		    File file2 = new File(getOftToHtmlGeneratedFilePath);
+		    BufferedReader br1 = new BufferedReader(new InputStreamReader(new FileInputStream(file1), "UTF-8"));
+		    BufferedReader br2 = new BufferedReader(new InputStreamReader(new FileInputStream(file2), "UTF-8"));
+		    String thisLine = null;
+		    String thatLine = null;
+		    StringBuilder builder = new StringBuilder();
+		    StringBuilder builder1 = new StringBuilder();
+		    while ((thisLine = br1.readLine()) != null) {
+		    	String sanitizedString = removeUTF8BOM(thisLine).replace("\t", "");  //remove tabs which come between the tags AND remove UTF8BOM encoding from HTML File 
+		    	builder.append(sanitizedString);
+		    }
+		    while ((thatLine = br2.readLine()) != null) {
+		    	String sanitizedString = removeUTF8BOM(thatLine).replace("\t", "");
+		        builder1.append(sanitizedString);
+		    }
+		    br1.close();
+		    br2.close();
+	        return builder.toString().equalsIgnoreCase(builder1.toString());
+		}
+	
+	// Remove UTF8BOM encoding from HTML File
+	private static String removeUTF8BOM(String s) {
+	    if (s.startsWith(UTF8_BOM)) {
+	        s = s.substring(1);
+	    }
+	    return s;
+	}
 }
