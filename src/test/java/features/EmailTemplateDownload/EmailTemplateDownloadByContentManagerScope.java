@@ -66,6 +66,7 @@ public class EmailTemplateDownloadByContentManagerScope {
 		{
 		structuredWebUser.shouldBeAbleToSeeSameContentInBothHtmlAndOft(expectedTemplateEmailName,genericFunctions.getDownloadPath());
 		}
+		
 		else if (genericFunctions.getOperaingSystem().equals(OperatingSystem.OS_MAC_OS))
 		{
 			structuredWebUser.shouldBeAbleToDownloadAsHtmlWithFileNameAtPath(expectedTemplateEmailName,genericFunctions.getDownloadPath());
