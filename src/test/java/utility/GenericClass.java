@@ -11,6 +11,8 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Set;
 
+import com.google.common.base.Strings;
+
 import model.OperatingSystem;
 import net.serenitybdd.core.pages.PageObject;
 
@@ -93,7 +95,7 @@ public class GenericClass extends PageObject{
 		    return lastModifiedFile;	}
 
 	/* Get the list of files from a specific directory and compare with expected file name - We will not use this as downloaded file name is same for all downloads. Even match is done for old file, this will pass*/
-	public boolean isHTMLFileDownloaded(String downloadPath, String expectedFileName) {
+	public boolean isHTMLFileGenerated(String downloadPath, String expectedFileName) {
 		boolean flag = false;
 	    File dir = new File(downloadPath);
 	    File[] dir_contents = dir.listFiles();
@@ -144,12 +146,29 @@ public class GenericClass extends PageObject{
 	    }
 		return pathOfDownloadedFile;
 }
-
+	
 	//Convert OFT File To HTML File via Batch File and OFT To HTML Converter
-	public String convertOftFileToHtmlAndGetItsPath(String FullOFTFilePath) throws IOException {
-		String OftToHtmConvertedFilePath = getDownloadPath() + "AshishTestFile.htm";
-		Runtime.getRuntime().exec(new String[]{"cmd.exe", "/c", "start OftToHtmlConverter.bat", FullOFTFilePath, OftToHtmConvertedFilePath});
-	    return OftToHtmConvertedFilePath;
+	public String convertOftFileToHtmlAndGetItsPath(String FullOFTFilePath) throws IOException, InterruptedException {
+		String OftToHtmConvertedFullFilePath = null;
+		if(!Strings.isNullOrEmpty(FullOFTFilePath))
+		{
+			String OftToHtmlConvertedFileName = "OftToHtml_" + getCurrentDateTime().replaceAll("[ /:]+", "_") + ".htm";
+			OftToHtmConvertedFullFilePath = getDownloadPath() + OftToHtmlConvertedFileName;
+			Runtime.getRuntime().exec(new String[]{"cmd.exe", "/c", "start OftToHtmlConverter.bat", FullOFTFilePath, OftToHtmConvertedFullFilePath});
+			Thread.sleep(10000L);
+			if(isHTMLFileGenerated(getDownloadPath(), OftToHtmlConvertedFileName))
+			{
+				return OftToHtmConvertedFullFilePath;
+			}
+			else
+			{
+				return null;
+			}
+		}
+		else
+		{
+			return OftToHtmConvertedFullFilePath;
+		}
 	}
 	
 	//compare OFT with HTML File - Convert OFT To HTML First using above function, then compare both HTML's

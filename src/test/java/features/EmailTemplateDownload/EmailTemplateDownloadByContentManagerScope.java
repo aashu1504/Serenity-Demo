@@ -1,9 +1,12 @@
 package features.EmailTemplateDownload;
 
 import java.io.IOException;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
+
+import model.OperatingSystem;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Issue;
 import net.thucydides.core.annotations.Managed;
@@ -59,6 +62,14 @@ public class EmailTemplateDownloadByContentManagerScope {
 		structuredWebUser.clickDownloadOFT();
 		
 		//Then
+		if(genericFunctions.getOperaingSystem().equals(OperatingSystem.OS_WINDOWS))
+		{
 		structuredWebUser.shouldBeAbleToSeeSameContentInBothHtmlAndOft(expectedTemplateEmailName,genericFunctions.getDownloadPath());
+		}
+		else if (genericFunctions.getOperaingSystem().equals(OperatingSystem.OS_MAC_OS))
+		{
+			structuredWebUser.shouldBeAbleToDownloadAsHtmlWithFileNameAtPath(expectedTemplateEmailName,genericFunctions.getDownloadPath());
+			structuredWebUser.shouldBeAbleToDownloadAsOftWithFileNameAtPath(expectedTemplateEmailName,genericFunctions.getDownloadPath());
+		}
 	}
 }

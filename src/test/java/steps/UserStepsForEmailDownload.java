@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.IOException;
 
+import org.assertj.core.util.Strings;
 import org.junit.Assert;
 
 import net.thucydides.core.annotations.Step;
@@ -129,7 +130,7 @@ public class UserStepsForEmailDownload {
 	// Check if HTMl File is Downloaded in the Downloads Folder
 	@Step
 	public void shouldBeAbleToDownloadAsHtmlWithFileNameAtPath(String expectedHtmlFileName, String downloadPath) {
-		boolean isHTMLFileDownloaded =  genericFunctions.isHTMLFileDownloaded(downloadPath, expectedHtmlFileName);
+		boolean isHTMLFileDownloaded =  genericFunctions.isHTMLFileGenerated(downloadPath, expectedHtmlFileName);
 			 Assert.assertTrue(isHTMLFileDownloaded);
 	}
 
@@ -142,11 +143,19 @@ public class UserStepsForEmailDownload {
 
 	// Verify if content in the downloaded HTML and OFT File is Same
 	@Step
-	public void shouldBeAbleToSeeSameContentInBothHtmlAndOft(String expectedFileName, String downloadPath) throws IOException {
+	public void shouldBeAbleToSeeSameContentInBothHtmlAndOft(String expectedFileName, String downloadPath) throws IOException, InterruptedException {
 		String getFullHTMLFilePath = genericFunctions.getFilePath(expectedFileName,downloadPath,".htm");
 		String getFullOFTFilePath = genericFunctions.getFilePath(expectedFileName,downloadPath,".oft");
-		String getOftToHtmlGeneratedFilePath = genericFunctions.convertOftFileToHtmlAndGetItsPath(getFullOFTFilePath);
-		boolean isFileContentSame = genericFunctions.compareOftFileWithHtmlFile(getFullHTMLFilePath,getOftToHtmlGeneratedFilePath);
-		Assert.assertTrue(isFileContentSame);
+		String getOftToHtmlFullGeneratedFilePath = genericFunctions.convertOftFileToHtmlAndGetItsPath(getFullOFTFilePath);
+		if(!Strings.isNullOrEmpty(getOftToHtmlFullGeneratedFilePath))
+		{
+			boolean isFileContentSame = genericFunctions.compareOftFileWithHtmlFile(getFullHTMLFilePath,getOftToHtmlFullGeneratedFilePath);
+			Assert.assertTrue(isFileContentSame);
+		}
+		else
+		{
+			System.out.println("Issue while converting File from OFT to HTML");
+			Assert.assertTrue(false);
+		}
 	}
 }
