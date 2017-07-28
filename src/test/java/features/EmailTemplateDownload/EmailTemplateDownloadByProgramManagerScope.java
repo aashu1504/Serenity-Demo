@@ -3,12 +3,13 @@ package features.EmailTemplateDownload;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
+
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Issue;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Narrative;
 import net.thucydides.core.annotations.Steps;
-import steps.UserStepsForEmailDownload;
+import steps.UserStepsForDownloadAndVerification;
 
 @Narrative(text={"In order to send a Template Email with pre filled content",                      
         "As a Program Manager",
@@ -18,7 +19,7 @@ import steps.UserStepsForEmailDownload;
 public class EmailTemplateDownloadByProgramManagerScope {
 
 	@Steps
-	UserStepsForEmailDownload structuredWebUser;	
+	UserStepsForDownloadAndVerification structuredWebUser;	
 	
 	@Managed
     WebDriver driver;

@@ -1,4 +1,4 @@
-package model;
+package testpackage;
 
 public enum Category {
 	Motors,

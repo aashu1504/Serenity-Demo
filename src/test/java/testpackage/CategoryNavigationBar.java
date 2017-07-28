@@ -1,9 +1,8 @@
-package ui;
+package testpackage;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import model.Category;
 import net.serenitybdd.core.pages.PageObject;
 
 public class CategoryNavigationBar extends PageObject{

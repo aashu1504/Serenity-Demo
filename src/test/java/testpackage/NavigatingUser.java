@@ -1,11 +1,9 @@
-package steps;
+package testpackage;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import model.Category;
+
 import net.thucydides.core.annotations.Step;
-import ui.CategoryNavigationBar;
 import ui.CurrentPage;
-import ui.EbayHomePage;
 
 public class NavigatingUser {
 

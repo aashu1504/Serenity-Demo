@@ -12,7 +12,11 @@ import net.thucydides.core.annotations.Issue;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Narrative;
 import net.thucydides.core.annotations.Steps;
-import steps.UserStepsForEmailDownload;
+import steps.UserStepsForCreatingNonTemplateEmailTactics;
+import steps.UserStepsForCreatingTemplateEmailTactics;
+import steps.UserStepsForDownloadAndVerification;
+import steps.UserStepsForLoginToAVendorAccount;
+import steps.UserStepsForNavigation;
 import utility.GenericClass;
 
 @Narrative(text={"In order to send a Template Email with pre filled content",                      
@@ -26,7 +30,15 @@ public class EmailTemplateDownloadByContentManagerScope {
 	String default_TemplateEmailName ="Email Template To Test HTML";
 	
 	@Steps
-	UserStepsForEmailDownload structuredWebUser;	
+	UserStepsForDownloadAndVerification downloadAndVerify;
+	@Steps
+	UserStepsForLoginToAVendorAccount loginToAVendorAccount;	
+	@Steps
+	UserStepsForNavigation userNavigationSteps;
+	@Steps
+	UserStepsForCreatingTemplateEmailTactics createTemplateEmail;
+	@Steps
+	UserStepsForCreatingNonTemplateEmailTactics createNonTemplateEmail;
 	
 	@Managed
     WebDriver driver;
@@ -39,38 +51,37 @@ public class EmailTemplateDownloadByContentManagerScope {
 		String expectedTemplateEmailName = templateEmailName.replaceAll("[ /:]+", "_");
 		
 		//Given
-		structuredWebUser.isOnStructuredWebHomePage();
+		loginToAVendorAccount.isOnStructuredWebHomePage();
 		
 		//When
-		structuredWebUser.entersSiteID("48482", "Structured Web Account");
-		structuredWebUser.clicksOnLogin();
-		structuredWebUser.selectTheRoleAs("Content Manager");
-		structuredWebUser.clickOnTemplatesTab();
-		structuredWebUser.clickEmailSubTab();
-		structuredWebUser.clickNewEmailTemplate();
-		structuredWebUser.enterEmailTemplateName(templateEmailName);
-		structuredWebUser.enterEmailTemplateDescription("This is a template email to test");
-		structuredWebUser.clickSaveEmailTemplate();
-		structuredWebUser.enterEmailTemplateContent("This is the content to be written in editor");
-		structuredWebUser.clickSaveEmailTemplate();
-		structuredWebUser.clickTacticsTab();
-		structuredWebUser.clickEmailSubTab();
-		structuredWebUser.clickNewlyCreatedEmailTemplate(templateEmailName);
-		structuredWebUser.enterTemplateSubjectLine("This is a subject line for Email Template");
-		structuredWebUser.clickOnSaveAndRefreshPreview();	
-		structuredWebUser.clickDownloadHTML();
-		structuredWebUser.clickDownloadOFT();
+		loginToAVendorAccount.entersSiteID("48482", "Structured Web Account");
+		loginToAVendorAccount.clicksOnLogin();
+		loginToAVendorAccount.selectTheRoleAs("Content Manager");
+		userNavigationSteps.clickOnTemplatesTab();
+		userNavigationSteps.clickEmailSubTab();
+		createTemplateEmail.clickNewEmailTemplate();
+		createTemplateEmail.enterEmailTemplateName(templateEmailName);
+		createTemplateEmail.enterEmailTemplateDescription("This is a template email to test");
+		createTemplateEmail.clickSaveEmailTemplate();
+		createTemplateEmail.enterEmailTemplateContent("This is the content to be written in editor");
+		createTemplateEmail.clickSaveEmailTemplate();
+		userNavigationSteps.clickTacticsTab();
+		userNavigationSteps.clickEmailSubTab();
+		createNonTemplateEmail.clickNewlyCreatedEmailTemplate(templateEmailName);
+		createNonTemplateEmail.enterTemplateSubjectLine("This is a subject line for Email Template");
+		createNonTemplateEmail.clickOnSaveAndRefreshPreview();	
+		downloadAndVerify.clickDownloadHTML();
+		downloadAndVerify.clickDownloadOFT();
 		
 		//Then
 		if(genericFunctions.getOperaingSystem().equals(OperatingSystem.OS_WINDOWS))
 		{
-		structuredWebUser.shouldBeAbleToSeeSameContentInBothHtmlAndOft(expectedTemplateEmailName,genericFunctions.getDownloadPath());
+			downloadAndVerify.shouldBeAbleToSeeSameContentInBothHtmlAndOft(expectedTemplateEmailName,genericFunctions.getDownloadPath());
 		}
-		
 		else if (genericFunctions.getOperaingSystem().equals(OperatingSystem.OS_MAC_OS))
 		{
-			structuredWebUser.shouldBeAbleToDownloadAsHtmlWithFileNameAtPath(expectedTemplateEmailName,genericFunctions.getDownloadPath());
-			structuredWebUser.shouldBeAbleToDownloadAsOftWithFileNameAtPath(expectedTemplateEmailName,genericFunctions.getDownloadPath());
+			downloadAndVerify.shouldBeAbleToDownloadAsHtmlWithFileNameAtPath(expectedTemplateEmailName,genericFunctions.getDownloadPath());
+			downloadAndVerify.shouldBeAbleToDownloadAsOftWithFileNameAtPath(expectedTemplateEmailName,genericFunctions.getDownloadPath());
 		}
 	}
 }
