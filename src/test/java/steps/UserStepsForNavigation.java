@@ -21,5 +21,11 @@ public class UserStepsForNavigation {
 	public void clickTacticsTab() {
 		navigationBar.clickTacticsTab();
 	}
+
+	@Step
+	public void clickonARoleFromListOfRoles(String role) {
+		navigationBar.clickonRoleDropdown();
+		navigationBar.clickOnARole(role);
+	}
 	
 }

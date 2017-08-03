@@ -6,22 +6,26 @@ import org.assertj.core.util.Strings;
 import org.junit.Assert;
 
 import net.thucydides.core.annotations.Step;
+import ui.CommonPageObjects;
 import ui.EmailPage;
+import ui.EmailTemplatePage;
 import utility.GenericClass;
 
 public class UserStepsForDownloadAndVerification {
 
 	GenericClass genericFunctions;
 	EmailPage emailPage;
+	CommonPageObjects commonPage;
+	EmailTemplatePage emailTemplatePage;
 
 	@Step
 	public void clickDownloadHTML() {
-		emailPage.clickDownloadHTMLButton();
+		commonPage.clickDownloadHTMLButton();
 	}
 	
 	@Step
 	public void clickDownloadOFT() {
-		emailPage.clickDownloadOFTButton();
+		commonPage.clickDownloadOFTButton();
 	}
 	
 	// Check if HTMl File is Downloaded in the Downloads Folder
@@ -54,5 +58,15 @@ public class UserStepsForDownloadAndVerification {
 			System.out.println("Issue while converting File from OFT to HTML");
 			Assert.assertTrue(false);
 		}
+	}
+
+	@Step
+	public void clickEmailDownloadButtonToChooseDownloadType() {
+		emailPage.clickEmailDownloadButtonToChooseDownloadType();
+	}
+	
+	@Step
+	public void clickEmailTemplateDownloadButtonToChooseDownloadType() {
+		emailTemplatePage.clickEmailTemplateDownloadButtonToChooseDownloadType();
 	}
 }

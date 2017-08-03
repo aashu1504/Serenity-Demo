@@ -22,6 +22,9 @@ public class EmailTemplatePage extends PageObject{
 	@FindBy(xpath = ".//input[@name='TemplateName']")
     WebElement emailTemplateName;
 	
+	@FindBy(xpath=".//*[@id='SaveButtonRow1']/table/tbody/tr/td[5]/div/button")
+	WebElement emailTemplateDownloadButton;
+	
 	//.//*[@id='SearchResultsDiv']/table/tbody/tr[@valign="top"]/td[2]/span/a
 	
 	public void clickNewEmailTemplate() {
@@ -42,5 +45,9 @@ public class EmailTemplatePage extends PageObject{
 	
 	public void enterEmailTemplateContent(String emailTemplateContent) {
 		contentEditor.sendKeys(emailTemplateContent);
+	}
+	
+	public void clickEmailTemplateDownloadButtonToChooseDownloadType() {
+		emailTemplateDownloadButton.click();
 	}
 }

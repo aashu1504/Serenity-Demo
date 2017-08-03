@@ -55,7 +55,7 @@ public class GenericClass extends PageObject{
     {
     	if(getOperaingSystem().equals(OperatingSystem.OS_MAC_OS))
 		{
-			downloadPath = "/Users/ashishu/Downloads/";
+			downloadPath = System.getProperty("user.home") + "/Downloads/";
 		}
 		else if(getOperaingSystem().equals(OperatingSystem.OS_WINDOWS))
 		{

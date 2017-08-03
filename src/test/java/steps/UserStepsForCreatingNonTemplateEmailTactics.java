@@ -21,4 +21,29 @@ public class UserStepsForCreatingNonTemplateEmailTactics {
 	public void clickOnSaveAndRefreshPreview() {
 		emailPage.saveAndRefreshClick();
 	}
+	
+	@Step
+	public void clickOnCreateNewEmail() {
+		emailPage.clickCreateNewEmailButton();
+	}
+
+	@Step
+	public void clickCreateNewContent() {
+		emailPage.clickCreateNewContent();
+	}
+	
+	@Step
+	public void enterEmailName(String emailName) {
+		emailPage.enterEmailName(emailName);
+	}
+	
+	@Step
+	public void enterEmailDescription(String emailDescription) {
+		emailPage.enterEmailDescription(emailDescription);;
+	}
+	
+	@Step
+	public void clickSaveEmailNameAndDescription() {
+		emailPage.clickSaveEmailNameAndDescription();
+	}
 }

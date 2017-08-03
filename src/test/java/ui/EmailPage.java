@@ -17,13 +17,23 @@ public class EmailPage extends PageObject{
 	WebElement saveAndRefreshPreview;
 
 	@FindBy(xpath=".//*[@id='SaveButtonRow1']/table/tbody/tr/td[5]/div/button")
-	WebElement downloadButton;
+	WebElement emailDownloadButton;
 	
-	@FindBy(xpath=".//ul[@class='dropdown-menu']/li[1]/a[contains(.,'HTML')]")
-	WebElement downloadHTML;
+	@FindBy(xpath=".//button[@name='New_Email']")
+	WebElement createNewEmailButton;
 	
-	@FindBy(xpath=".//ul[@class='dropdown-menu']/li[2]/a[contains(.,'OFT')]")
-	WebElement downloadOFT;
+	@FindBy(xpath=".//img[@src='/sw_ap2/themes/5/images/blank.gif']")
+	WebElement createNewContent; 
+	
+	@FindBy(xpath = ".//*[@id='campaignNameInput']")
+    WebElement enterEmailName;
+	
+	@FindBy(xpath = ".//*[@id='campaignDescriptionInput']")
+    WebElement enterEmailDescription;
+	
+	@FindBy(xpath = ".//*[@id='SaveNew']")
+    WebElement saveEmailNameAndDescriptionButton;
+
 	
 	public void clickNewlyCreatedTemplate(String templateEmailName) {
 		List<WebElement> allEmailTemplates = getDriver().findElements(By.xpath(".//*[@id='SearchResultsDiv']/table/tbody/tr[@valign='top']/td[2]/span/a"));
@@ -46,13 +56,27 @@ public class EmailPage extends PageObject{
 		saveAndRefreshPreview.click();
 	}
 
-	public void clickDownloadHTMLButton() {
-		downloadButton.click();
-		downloadHTML.click();
+	public void clickCreateNewEmailButton() {
+		createNewEmailButton.click();
+	}
+
+	public void clickCreateNewContent() {
+		createNewContent.click();
 	}
 	
-	public void clickDownloadOFTButton() {
-		downloadButton.click();
-		downloadOFT.click();
+	public void enterEmailName(String emailName) {
+		enterEmailName.sendKeys(emailName);
+	}
+	
+	public void enterEmailDescription(String emailDescription) {
+		enterEmailDescription.sendKeys(emailDescription);
+	}
+	
+	public void clickSaveEmailNameAndDescription() {
+		saveEmailNameAndDescriptionButton.click();
+	}
+
+	public void clickEmailDownloadButtonToChooseDownloadType() {
+		emailDownloadButton.click();
 	}
 }

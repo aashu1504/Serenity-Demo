@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 
 import model.OperatingSystem;
 import net.serenitybdd.junit.runners.SerenityRunner;
+import net.thucydides.core.annotations.ClearCookiesPolicy;
 import net.thucydides.core.annotations.Issue;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Narrative;
@@ -40,12 +41,12 @@ public class EmailTemplateDownloadByContentManagerScope {
 	@Steps
 	UserStepsForCreatingNonTemplateEmailTactics createNonTemplateEmail;
 	
-	@Managed
+	@Managed(clearCookies=ClearCookiesPolicy.BeforeEachTest)
     WebDriver driver;
 	
 	@Test
 	@Issue("SW-6386")
-	public void shouldBeAbleToDownloadEmailTemplateAsHtmlAndOftFromContentManager() throws InterruptedException, IOException
+	public void verifyETemplateDownloadFilesWithoutLandingPageFromContentManager() throws InterruptedException, IOException
 	{
 		String templateEmailName = default_TemplateEmailName + " " +  genericFunctions.getCurrentDateTime();
 		String expectedTemplateEmailName = templateEmailName.replaceAll("[ /:]+", "_");
@@ -70,7 +71,9 @@ public class EmailTemplateDownloadByContentManagerScope {
 		createNonTemplateEmail.clickNewlyCreatedEmailTemplate(templateEmailName);
 		createNonTemplateEmail.enterTemplateSubjectLine("This is a subject line for Email Template");
 		createNonTemplateEmail.clickOnSaveAndRefreshPreview();	
+		downloadAndVerify.clickEmailTemplateDownloadButtonToChooseDownloadType();
 		downloadAndVerify.clickDownloadHTML();
+		downloadAndVerify.clickEmailTemplateDownloadButtonToChooseDownloadType();
 		downloadAndVerify.clickDownloadOFT();
 		
 		//Then
