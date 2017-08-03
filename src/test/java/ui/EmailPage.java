@@ -16,7 +16,7 @@ public class EmailPage extends PageObject{
 	@FindBy(xpath=".//*[@id='Save2Button']")
 	WebElement saveAndRefreshPreview;
 
-	@FindBy(xpath=".//*[@id='SaveButtonRow1']/table/tbody/tr/td[5]/div/button")
+	@FindBy(xpath=".//tr[@id='deleteMessage']//following-sibling::tr/td[5]/div/button")
 	WebElement emailDownloadButton;
 	
 	@FindBy(xpath=".//button[@name='New_Email']")

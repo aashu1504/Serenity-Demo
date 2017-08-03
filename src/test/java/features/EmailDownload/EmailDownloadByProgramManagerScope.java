@@ -2,7 +2,6 @@ package features.EmailDownload;
 
 import java.io.IOException;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
@@ -40,7 +39,7 @@ public class EmailDownloadByProgramManagerScope {
 	@Managed(clearCookies=ClearCookiesPolicy.BeforeEachTest)
     WebDriver driver;
 	
-	@Test @Ignore
+	@Test
 	@Issue("SW-6386")
 	public void verifyEmailDownloadFilesWithoutLandingPageFromProgramManager() throws IOException, InterruptedException
 	{
